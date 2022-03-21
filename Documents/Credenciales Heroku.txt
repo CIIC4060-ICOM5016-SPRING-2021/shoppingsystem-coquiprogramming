@@ -1,0 +1,7 @@
+Host ec2-3-222-204-187.compute-1.amazonaws.com
+Database d7okpnllqijpgi
+User vklmqqnbrudglf
+Port 5432
+Password : 01e0c61352e174e36b0c72ea1032855e14cd323bd06399de5d15abab93a04928
+URI postgres://vklmqqnbrudglf:01e0c61352e174e36b0c72ea1032855e14cd323bd06399de5d15abab93a04928@ec2-3-222-204-187.compute-1.amazonaws.com:5432/d7okpnllqijpgi
+Heroku CLI : heroku pg:psql postgresql-metric-23444 --app coquiprogramming
