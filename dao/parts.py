@@ -42,3 +42,11 @@ class PartDAO:
         part_id = cursor.fetchone()[0]
         self.conn.commit()
         return part_id
+
+    def updatePart(self, part_id, part_name, part_price, cat_id, quantity, part_info):
+        query = "update parts set part_name = %s, part_price = %s, cat_id = %s, quantity = %s, part_info = %s where part_id = %s;"
+        cursor = self.conn.cursor()
+        cursor.execute(query, (part_name, part_price, cat_id, quantity, part_info, part_id))
+        rowcount = cursor.rowcount
+        self.conn.commit()
+        return rowcount != 0

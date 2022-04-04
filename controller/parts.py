@@ -7,7 +7,7 @@ class PartController:
         result['part_name'] = row[1]
         result['part_price'] = row[2]
         result['cat_id'] = row[3]
-        result['QuantityAvailable'] = row[4]
+        result['quantity'] = row[4]
         result['part_info'] = row[5]
         return result
 
@@ -64,3 +64,18 @@ class PartController:
 
         json['part_id'] = part_id
         return jsonify(json),201
+
+    def updatePart(self, part_id, json):
+        part_name = json['part_name']
+        part_price = json['part_price']
+        cat_id = json['cat_id']
+        quantity = json['quantity']
+        part_info = json['part_info']
+
+        dao = PartDAO()
+        result = dao.updatePart(part_id, part_name, part_price, cat_id, quantity, part_info)
+        if result:
+            return jsonify(json),200
+        else:
+            return jsonify("NOT FOUND"), 404
+
