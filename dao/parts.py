@@ -25,4 +25,11 @@ class PartDAO:
         cursor.execute(query, (part_id,))
         result = cursor.fetchone()
         return result
-
+    def getPartbyCatname(self, cat_name):
+        query = "select * from (parts natural inner join categories) where cat_name = %s"
+        cursor = self.conn.cursor()
+        cursor.execute(query, (cat_name,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
