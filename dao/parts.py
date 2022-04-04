@@ -25,6 +25,7 @@ class PartDAO:
         cursor.execute(query, (part_id,))
         result = cursor.fetchone()
         return result
+
     def getPartbyCatname(self, cat_name):
         query = "select * from (parts natural inner join categories) where cat_name = %s"
         cursor = self.conn.cursor()
@@ -33,3 +34,11 @@ class PartDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    def newPart(self, part_name, part_price, cat_id, quantity, part_info):
+        cursor = self.conn.cursor()
+        query = "insert into parts (part_name, part_price, cat_id, quantity, part_info) values(%s, %s, %s, %s, %s) returning part_id"
+        cursor.execute(query, (part_name, part_price, cat_id, quantity, part_info,))
+        part_id = cursor.fetchone()[0]
+        self.conn.commit()
+        return part_id

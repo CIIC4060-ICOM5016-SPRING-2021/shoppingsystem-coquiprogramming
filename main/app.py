@@ -16,6 +16,8 @@ def handler():
 def parts_handler():
     if request.method == 'GET':
         return PartController().getAllParts()
+    elif request.method == 'POST':
+        return PartController().newPart(request.json)
     else:
         return jsonify("Method Not Supported"),405
 
