@@ -21,3 +21,11 @@ class PartController:
 
         return jsonify(parts = result)
 
+    def getPartById(self, part_id):
+       dao = PartDAO()
+       result_tuple = dao.getPartById(part_id)
+       if not result_tuple:
+           return jsonify("ERROR NOT FOUND"),404
+       part = self.part_build_dict(result_tuple)
+       return jsonify(part)
+

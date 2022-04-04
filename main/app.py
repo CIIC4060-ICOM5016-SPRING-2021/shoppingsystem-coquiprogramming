@@ -19,6 +19,13 @@ def parts_handler():
     else:
         return jsonify("Method Not Supported"),405
 
+@app.route('/PartsApp/Parts/<int:part_id>', methods = ['GET', 'POST'])
+def parts_byid_handler(part_id):
+    if request.method == 'GET':
+        return PartController().getPartById(part_id)
+
+    else: return jsonify("Not Supported"), 405
+
 
 if __name__ == '__main__':
     app.run(debug=1)

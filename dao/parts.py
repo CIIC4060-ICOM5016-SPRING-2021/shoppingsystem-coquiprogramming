@@ -19,3 +19,10 @@ class PartDAO:
             result.append(row)
         return result
 
+    def getPartById(self,part_id):
+        query = "select * from parts where part_id = '%s'"
+        cursor = self.conn.cursor()
+        cursor.execute(query, (part_id,))
+        result = cursor.fetchone()
+        return result
+
