@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 
 from controller.parts import PartController
+from controller.user import UserController
 
 app = Flask(__name__)
 
@@ -68,6 +69,23 @@ def parts_by_price_less_than_equal_to(part_price):
         return PartController().getPartsByPriceLessThanOrEqualTo(part_price)
     else:
         return jsonify("NOT SUPPORTED"), 405
+
+
+"""
+    Route to get all users
+"""
+
+
+@app.route('/PartsApp/User', methods=['GET', 'POST', 'PUT'])
+def user_handler():
+    if request.method == 'GET':
+        return UserController().getAllUser()
+    elif request.method == 'POST':
+        return UserController().newUser(request.json)
+    elif request.method == 'PUT':
+        return UserController().updateUser(request.json)
+    else:
+        return jsonify("Method Not Supported"), 405
 
 
 if __name__ == '__main__':
