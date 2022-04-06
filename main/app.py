@@ -79,10 +79,23 @@ def parts_by_price_less_than_equal_to(part_price):
 """
 
 
-@app.route('/PartsApp/Parts/Ordered', methods=['GET'])
+@app.route('/PartsApp/Parts/OrderedAsc', methods=['GET'])
 def parts_by_name_ascending():
     if request.method == 'GET':
         return PartController().order_parts_by_name()
+    else:
+        return jsonify("NOT SUPPORTED"), 405
+
+
+"""
+    Route to access parts ordered alphabetically (Z-A).
+"""
+
+
+@app.route('/PartsApp/Parts/OrderedDesc', methods=['GET'])
+def parts_by_name_descending():
+    if request.method == 'GET':
+        return PartController().order_parts_by_name_desc()
     else:
         return jsonify("NOT SUPPORTED"), 405
 

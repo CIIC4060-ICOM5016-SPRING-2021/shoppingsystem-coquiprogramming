@@ -102,6 +102,21 @@ class PartController:
 
         return jsonify(parts=result)
 
+    """
+        Orders all parts alphabetically by name (descending order).
+    """
+
+    def order_parts_by_name_desc(self):
+        dao = PartDAO()
+
+        result_tuples = dao.order_parts_by_name_desc()
+        result = []
+        for row in result_tuples:
+            dict = self.part_build_dict(row)
+            result.append(dict)
+
+        return jsonify(parts=result)
+
     def newPart(self, json):
         part_name = json['part_name']
         part_price = json['part_price']
