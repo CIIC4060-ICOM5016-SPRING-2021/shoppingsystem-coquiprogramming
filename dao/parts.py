@@ -63,6 +63,20 @@ class PartDAO:
         return result
 
     """
+        Selects all parts from Parts table and orders them alphabetically in ascending order (A-Z).
+    """
+
+    def order_parts_by_name(self):
+        query = "select * from parts order by part_name"
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    """
         Adds new part record to Parts table. Admin usage.
     """
 
