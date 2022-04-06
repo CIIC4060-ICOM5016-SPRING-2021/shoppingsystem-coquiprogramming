@@ -156,6 +156,13 @@ def order_handler():
     else:
         return jsonify("Method Not Supported"), 405
 
+@app.route('/PartsApp/Order/<int:order_id>', methods=['GET'])
+def orderinfo_byid_handler(order_id):
+    if request.method == 'GET':
+        return OrderController().getOrderInfoById(order_id)
+    else:
+        return jsonify("Method Not Supported"),405
+
 
 if __name__ == '__main__':
     app.run(debug=1)

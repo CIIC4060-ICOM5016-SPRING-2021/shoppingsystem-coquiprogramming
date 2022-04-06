@@ -10,6 +10,13 @@ class OrderController:
         result['total'] = row[2]
         return result
 
+    def orderInfo_build_dict(self, row):
+        result = {}
+        result['part_name'] = row[0]
+        result['part_price'] = row[1]
+        result['partquantity'] = row[2]
+        return result
+
     def getAllOrders(self):
         dao = OrderDAO()
 
@@ -20,3 +27,15 @@ class OrderController:
             result.append(dict)
 
         return jsonify(order=result)
+
+    def getOrderInfoById(self, order_id):
+        dao = OrderDAO()
+        result_tuple = dao.getOrderInfoById(order_id)
+        if not result_tuple:
+            return jsonify("ERROR NOT FOUND"), 404
+
+        result_list = []
+        for row in result_tuple:
+            result = self.orderInfo_build_dict(row)
+            result_list.append(result)
+        return jsonify(Orderhas=result_list)
