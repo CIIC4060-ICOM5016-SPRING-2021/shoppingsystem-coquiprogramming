@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 
+from controller.orders import OrderController
 from controller.parts import PartController
 from controller.user import UserController
 
@@ -99,6 +100,21 @@ def user_handler():
         return UserController().newUser(request.json)
     elif request.method == 'PUT':
         return UserController().updateUser(request.json)
+    else:
+        return jsonify("Method Not Supported"), 405
+
+
+
+
+"""
+    Route to get all orders
+"""
+
+@app.route('/PartsApp/Order', methods = ['GET', 'PUT'])
+def order_handler():
+    if request.method == 'GET':
+        return OrderController().getAllOrders()
+
     else:
         return jsonify("Method Not Supported"), 405
 
