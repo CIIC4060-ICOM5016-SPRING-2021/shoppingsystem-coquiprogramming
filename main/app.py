@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 
+from controller.cart import CartController
 from controller.orders import OrderController
 from controller.parts import PartController
 from controller.user import UserController
@@ -163,6 +164,15 @@ def orderinfo_byid_handler(order_id):
     else:
         return jsonify("Method Not Supported"),405
 
+"""
+    Route to cart
+"""
+@app.route('/PartsApp/Cart', methods=['POST', 'DELETE'])
+def cart_handler():
+    if request.method == 'POST':
+        return CartController().newPart(request.json)
+    else:
+        return jsonify("Method Not Supported"), 405
 
 if __name__ == '__main__':
     app.run(debug=1)
