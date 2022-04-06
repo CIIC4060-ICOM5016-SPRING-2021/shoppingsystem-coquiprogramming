@@ -128,3 +128,13 @@ class PartController:
             return jsonify(json), 200
         else:
             return jsonify("NOT FOUND"), 404
+
+
+    def deletePart(self, part_id):
+         dao = PartDAO()
+         result_tuple = dao.getPartById(part_id)
+         if not result_tuple:
+             return jsonify("PART NOT FOUND"),404
+         else: dao.deletePart(part_id)
+         return jsonify("Part Deleted"),200
+

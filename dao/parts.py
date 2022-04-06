@@ -101,3 +101,13 @@ class PartDAO:
         rowcount = cursor.rowcount
         self.conn.commit()
         return rowcount != 0
+
+    """
+            Admin usage. Delete part specified by given part id.
+        """
+    def deletePart(self,part_id):
+        query = "delete from parts where part_id = %s;"
+        cursor = self.conn.cursor()
+        cursor.execute(query, ([part_id]))
+        self.conn.commit()
+        return part_id

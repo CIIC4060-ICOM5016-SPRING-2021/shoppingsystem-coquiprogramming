@@ -19,7 +19,7 @@ def handler():
 """
 
 
-@app.route('/PartsApp/Parts', methods=['GET', 'POST'])
+@app.route('/PartsApp/Parts', methods=['GET', 'POST', 'DELETE'])
 def parts_handler():
     if request.method == 'GET':
         return PartController().getAllParts()
@@ -34,12 +34,14 @@ def parts_handler():
 """
 
 
-@app.route('/PartsApp/Parts/<int:part_id>', methods=['GET', 'PUT'])
+@app.route('/PartsApp/Parts/<int:part_id>', methods=['GET', 'PUT', 'DELETE'])
 def parts_byid_handler(part_id):
     if request.method == 'GET':
         return PartController().getPartById(part_id)
     elif request.method == 'PUT':
         return PartController().updatePart(part_id, request.json)
+    elif request.method == 'DELETE':
+        return PartController().deletePart(part_id)
     else:
         return jsonify("Not Supported"), 405
 
