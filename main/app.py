@@ -72,6 +72,19 @@ def parts_by_price_less_than_equal_to(part_price):
 
 
 """
+    Route to access parts ordered alphabetically (A-Z).
+"""
+
+
+@app.route('/PartsApp/Parts/Ordered', methods=['GET'])
+def parts_by_name_ascending():
+    if request.method == 'GET':
+        return PartController().order_parts_by_name()
+    else:
+        return jsonify("NOT SUPPORTED"), 405
+
+
+"""
     Route to get all users
 """
 

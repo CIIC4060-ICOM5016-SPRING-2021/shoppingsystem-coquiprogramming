@@ -33,6 +33,16 @@ class PartController:
         result['Category'] = row[5]
         return result
 
+    def parts_by_name_dict(self, row):
+        result = {}
+        result['part_id'] = row[0]
+        result['part_name'] = row[1]
+        result['part_price'] = row[2]
+        result['cat_id'] = row[3]
+        result['quantity'] = row[4]
+        result['part_info'] = row[5]
+        return result
+
     def getAllParts(self):
         dao = PartDAO()
 
@@ -76,6 +86,21 @@ class PartController:
             dict = self.partByPriceLessThanOrEqualTo_build_dict(row)
             result.append(dict)
         return jsonify(part=result)
+
+    """
+        Orders all parts alphabetically by name (ascending order).
+    """
+
+    def order_parts_by_name(self):
+        dao = PartDAO()
+
+        result_tuples = dao.order_parts_by_name()
+        result = []
+        for row in result_tuples:
+            dict = self.part_build_dict(row)
+            result.append(dict)
+
+        return jsonify(parts=result)
 
     def newPart(self, json):
         part_name = json['part_name']
