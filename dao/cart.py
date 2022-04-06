@@ -12,10 +12,15 @@ class CartDAO:
 
     def addPartToCart(self, user_id, part_id, quantity):
         cursor = self.conn.cursor()
-        query = "insert into cart (user_id, part_id, quantity) values(%s,%s,%s)"
-        cursor.execute(query, (user_id, part_id, quantity,))
-        self.conn.commit()
-        return user_id
+        prequery = "select user_id, part_id from cart where user_id = %s and part_id = %s"
+
+        cursor.execute(prequery, (user_id, part_id))
+        if cursor.rowcount == 0:
+            query = "insert into cart (user_id, part_id, quantity) values(%s,%s,%s)"
+            cursor.execute(query, (user_id, part_id, quantity,))
+
+            self.conn.commit()
+            return user_id
 
     def deletePartFromCart(self, user_id, part_id):
         query = "delete from cart where user_id = %s AND part_id = %s;"
