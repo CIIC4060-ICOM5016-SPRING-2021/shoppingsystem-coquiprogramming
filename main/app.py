@@ -174,5 +174,12 @@ def cart_handler():
     else:
         return jsonify("Method Not Supported"), 405
 
+@app.route('/PartsApp/Cart/<int:user_id>/<int:part_id>', methods = ['DELETE'])
+def cartDeletePart_handler(user_id, part_id):
+    if request.method == 'DELETE':
+        return CartController().deletePartFromCart(user_id, part_id)
+    else:
+        return jsonify("Method Not Supported"),405
+
 if __name__ == '__main__':
     app.run(debug=1)

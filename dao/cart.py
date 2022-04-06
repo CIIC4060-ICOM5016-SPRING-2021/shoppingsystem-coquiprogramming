@@ -17,4 +17,12 @@ class CartDAO:
         self.conn.commit()
         return user_id
 
+    def deletePartFromCart(self, user_id, part_id):
+        query = "delete from cart where user_id = %s AND part_id = %s;"
+        cursor = self.conn.cursor()
+        cursor.execute(query, (user_id, part_id))
+        self.conn.commit()
+        rowcount = cursor.rowcount
+        self.conn.commit()
+        return rowcount != 0
 

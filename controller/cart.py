@@ -21,3 +21,14 @@ class CartController:
         part_id = dao.addPartToCart(user_id, part_id, quantity)
 
         return jsonify(json), 201
+
+    def deletePartFromCart(self, user_id,part_id):
+
+        dao = CartDAO()
+        result_tuple = dao.deletePartFromCart(user_id,part_id)
+
+        if not result_tuple:
+            return jsonify("PART NOT FOUND"), 404
+        else:
+            dao.deletePartFromCart(user_id,part_id)
+        return jsonify("Part Deleted"), 200
