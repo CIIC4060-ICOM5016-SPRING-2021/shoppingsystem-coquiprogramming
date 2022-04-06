@@ -53,7 +53,7 @@ def parts_byid_handler(part_id):
 
 
 @app.route('/PartsApp/Parts/<string:cat_name>', methods=['GET'])
-def parts_bycatname_handler(cat_name):
+def parts_by_cat_name_handler(cat_name):
     if request.method == 'GET':
         return PartController().getPartByCatname(cat_name)
 
@@ -62,7 +62,7 @@ def parts_bycatname_handler(cat_name):
 
 
 """
-    Route to filter parts by prices less than or equal to desired price.
+    Route to page with filtered parts by prices less than or equal to desired price.
 """
 
 
@@ -101,6 +101,32 @@ def parts_by_name_descending():
 
 
 """
+    Route to access parts ordered by their price in ascending order. 
+"""
+
+
+@app.route('/PartsApp/Parts/OrderedAscByPrice', methods=['GET'])
+def parts_by_price_ascending():
+    if request.method == 'GET':
+        return PartController().order_parts_by_price()
+    else:
+        return jsonify("NOT SUPPORTED"), 405
+
+
+"""
+    Route to access parts ordered by their price in descending order. 
+"""
+
+
+@app.route('/PartsApp/Parts/OrderedDescByPrice', methods=['GET'])
+def parts_by_price_descending():
+    if request.method == 'GET':
+        return PartController().order_parts_by_price_desc()
+    else:
+        return jsonify("NOT SUPPORTED"), 405
+
+
+"""
     Route to get all users
 """
 
@@ -117,13 +143,12 @@ def user_handler():
         return jsonify("Method Not Supported"), 405
 
 
-
-
 """
     Route to get all orders
 """
 
-@app.route('/PartsApp/Order', methods = ['GET', 'PUT'])
+
+@app.route('/PartsApp/Order', methods=['GET', 'PUT'])
 def order_handler():
     if request.method == 'GET':
         return OrderController().getAllOrders()

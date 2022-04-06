@@ -10,7 +10,7 @@ class PartDAO:
         self.conn = psycopg2.connect(connection_url)
 
     """
-        Get all records from Parts table.
+        Select all records from Parts table.
     """
 
     def getAllParts(self):
@@ -91,6 +91,34 @@ class PartDAO:
         return result
 
     """
+        Select all parts ordered by their price in ascending order.
+    """
+
+    def order_parts_by_price(self):
+        query = "select * from parts order by part_price"
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    """
+        Select all parts ordered by their price in ascending order.
+    """
+
+    def order_parts_by_price_desc(self):
+        query = "select * from parts order by part_price desc"
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    """
         Adds new part record to Parts table. Admin usage.
     """
 
@@ -119,7 +147,8 @@ class PartDAO:
     """
             Admin usage. Delete part specified by given part id.
         """
-    def deletePart(self,part_id):
+
+    def deletePart(self, part_id):
         query = "delete from parts where part_id = %s;"
         cursor = self.conn.cursor()
         cursor.execute(query, ([part_id]))
