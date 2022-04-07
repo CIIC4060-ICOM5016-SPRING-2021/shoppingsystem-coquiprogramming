@@ -11,7 +11,6 @@ class CartController:
         result['quantity'] = row[2]
         return result
 
-
     def newPart(self, json):
         user_id = json['user_id']
         part_id = json['part_id']
@@ -22,13 +21,23 @@ class CartController:
 
         return jsonify(json), 201
 
-    def deletePartFromCart(self, user_id,part_id):
+    def deletePartFromCart(self, user_id, part_id):
 
         dao = CartDAO()
-        result_tuple = dao.deletePartFromCart(user_id,part_id)
+        result_tuple = dao.deletePartFromCart(user_id, part_id)
 
         if not result_tuple:
             return jsonify("PART NOT FOUND"), 404
         else:
-            dao.deletePartFromCart(user_id,part_id)
+            dao.deletePartFromCart(user_id, part_id)
         return jsonify("Part Deleted"), 200
+
+    def clearAllPartsFromCart(self, user_id):
+        dao = CartDAO()
+        result_tuple = dao.clearAllPartsFromCart(user_id)
+
+        if not result_tuple:
+            return jsonify("PART NOT FOUND"), 404
+        else:
+            dao.clearAllPartsFromCart(user_id)
+        return jsonify("Cart Has Been Cleared"), 200

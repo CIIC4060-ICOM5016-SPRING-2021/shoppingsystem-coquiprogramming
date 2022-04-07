@@ -39,3 +39,4 @@ class OrderController:
             result = self.orderInfo_build_dict(row)
             result_list.append(result)
         return jsonify(Orderhas=result_list)
+

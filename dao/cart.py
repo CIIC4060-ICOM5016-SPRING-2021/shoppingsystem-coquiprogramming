@@ -31,3 +31,11 @@ class CartDAO:
         self.conn.commit()
         return rowcount != 0
 
+    def clearAllPartsFromCart(self, user_id):
+        query = "delete from cart where user_id = %s;"
+        cursor = self.conn.cursor()
+        cursor.execute(query, (user_id,))
+        self.conn.commit()
+        rowcount = cursor.rowcount
+        self.conn.commit()
+        return rowcount != 0
