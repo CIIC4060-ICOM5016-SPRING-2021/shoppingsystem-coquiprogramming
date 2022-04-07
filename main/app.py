@@ -5,6 +5,7 @@ from controller.cart import CartController
 from controller.orders import OrderController
 from controller.parts import PartController
 from controller.user import UserController
+from controller.wishlist import WishListController
 
 app = Flask(__name__)
 
@@ -199,6 +200,42 @@ def cartClearAllParts_handler(user_id):
 def viewUserCart(user_id):
     if request.method == 'GET':
         return CartController().viewCart(user_id)
+    else:
+        return jsonify("Method Not Supported"), 405
+
+
+"""
+    Route to wishlist.
+
+"""
+@app.route('/PartsApp/WishList', methods=['POST', 'DELETE']) #checked works
+def wishlist_handler():
+    if request.method == 'POST':
+        return WishListController().addPartToWishList(request.json)
+    else:
+        return jsonify("Method Not Supported"), 405
+
+
+@app.route('/PartsApp/WishList/<int:user_id>/<int:part_id>', methods=['DELETE']) #checked works
+def wishlistDeletePart_handler(user_id, part_id):
+    if request.method == 'DELETE':
+        return WishListController().deletePartFromWishList(user_id, part_id)
+    else:
+        return jsonify("Method Not Supported"), 405
+
+
+@app.route('/PartsApp/WishList/<int:user_id>/', methods=['DELETE'])
+def wishlistClearAllParts_handler(user_id):
+    if request.method == 'DELETE':
+        return WishListController().clearAllPartsFromWishList(user_id)
+    else:
+        return jsonify("Method Not Supported"), 405
+
+
+@app.route('/PartsApp/ViewWishList/<int:user_id>/', methods=['GET']) #checked works
+def viewUserWishList(user_id):
+    if request.method == 'GET':
+        return WishListController().viewWishList(user_id)
     else:
         return jsonify("Method Not Supported"), 405
 
