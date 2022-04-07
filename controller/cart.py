@@ -11,6 +11,13 @@ class CartController:
         result['quantity'] = row[2]
         return result
 
+    def view_cart_dict(self, row):
+        result = {}
+        #result['user_id'] = row[0]
+        result['part_id'] = row[0]
+        result['quantity'] = row[1]
+        return result
+
     def newPart(self, json):
         user_id = json['user_id']
         part_id = json['part_id']
@@ -41,3 +48,15 @@ class CartController:
         else:
             dao.clearAllPartsFromCart(user_id)
         return jsonify("Cart Has Been Cleared"), 200
+
+    def viewCart(self, user_id):
+        dao = CartDAO()
+
+        result_tuples = dao.viewCart(user_id)
+        result = []
+        for row in result_tuples:
+            dict = self.view_cart_dict(row)
+            result.append(dict)
+
+        return jsonify(cart=result)
+

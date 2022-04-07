@@ -10,6 +10,15 @@ class CartDAO:
                             pg_config['dbport'], pg_config['host'])
         self.conn = psycopg2.connect(connection_url)
 
+    def viewCart(self, user_id):
+        query = "select part_id, quantity from cart where user_id = '%s'"
+        cursor = self.conn.cursor()
+        cursor.execute(query, (user_id,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
     def addPartToCart(self, user_id, part_id, quantity):
         cursor = self.conn.cursor()
         prequery = "select user_id, part_id from cart where user_id = %s and part_id = %s"

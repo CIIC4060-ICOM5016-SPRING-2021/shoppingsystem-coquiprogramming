@@ -195,5 +195,13 @@ def cartClearAllParts_handler(user_id):
         return jsonify("Method Not Supported"), 405
 
 
+@app.route('/PartsApp/ViewCart/<int:user_id>/', methods=['GET'])
+def viewUserCart(user_id):
+    if request.method == 'GET':
+        return CartController().viewCart(user_id)
+    else:
+        return jsonify("Method Not Supported"), 405
+
+
 if __name__ == '__main__':
     app.run(debug=1)
