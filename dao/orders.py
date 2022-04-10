@@ -19,7 +19,7 @@ class OrderDAO:
         return result
 
     def getOrderInfoById(self, order_id):
-        query = "select part_name,part_price, partquantity from (orderhas left join parts p on p.part_id = " \
+        query = "select part_name,part_price, partquantity, partquantity * part_price as totalPartPrice from (orderhas left join parts p on p.part_id = " \
                 "orderhas.part_id) where order_id = %s "
         cursor = self.conn.cursor()
         cursor.execute(query, (order_id,))
@@ -27,5 +27,8 @@ class OrderDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    #def getOrdersHistory(self, user_id):
+
 
 

@@ -15,6 +15,7 @@ class OrderController:
         result['part_name'] = row[0]
         result['part_price'] = row[1]
         result['partquantity'] = row[2]
+        result['totalPartsPrice'] = row[3]
         return result
 
     def getAllOrders(self):
