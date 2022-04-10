@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 
 from controller.cart import CartController
+from controller.globalstatistics import GlobalController
 from controller.orders import OrderController
 from controller.parts import PartController
 from controller.user import UserController
@@ -238,6 +239,45 @@ def viewUserWishList(user_id):
         return WishListController().viewWishList(user_id)
     else:
         return jsonify("Method Not Supported"), 405
+
+
+''' GLOBAL RANKING ROUTES'''
+
+@app.route('/PartsApp/GlobalRank/MostExpensive', methods=['GET'])
+def getMostExpensive_handler():
+    if request.method == 'GET':
+        return GlobalController().getMostExpensive()
+    else:
+        return jsonify("Method Not Supported"), 405
+
+
+@app.route('/PartsApp/GlobalRank/Cheapest', methods=['GET'])
+def getCheapest_handler():
+    if request.method == 'GET':
+        return GlobalController().getCheapest()
+    else:
+        return jsonify("Method Not Supported"), 405
+
+@app.route('/PartsApp/GlobalRank/MostLiked', methods=['GET'])
+def getMostLiked_handler():
+    if request.method == 'GET':
+        return GlobalController().getMostLiked()
+    else:
+        return jsonify("Method Not Supported"), 405
+
+@app.route('/PartsApp/GlobalRank/topProductBought', methods=['GET'])
+def getTopProductBought_handler():
+        if request.method == 'GET':
+            return GlobalController().getTopProductBought()
+        else:
+            return jsonify("Method Not Supported"), 405
+
+@app.route('/PartsApp/GlobalRank/topCatBought', methods=['GET'])
+def getTopCatBought_handler():
+        if request.method == 'GET':
+            return GlobalController().getTopCatBought()
+        else:
+            return jsonify("Method Not Supported"), 405
 
 
 if __name__ == '__main__':
