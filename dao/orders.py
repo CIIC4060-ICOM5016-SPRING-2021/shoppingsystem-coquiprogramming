@@ -22,8 +22,10 @@ class OrderDAO:
         return result
 
     def getOrderInfoById(self, order_id):
-        query = "select part_name,price_bought, partquantity, partquantity * price_bought as totalPartPrice from (orderhas left join parts p on p.part_id = " \
-                "orderhas.part_id) where order_id = %s "
+        query = "select orderhas.part_id,part_name, price_bought, partquantity, partquantity * price_bought as partTotal from " \
+                "orderhas left join parts p on p.part_id = orderhas.part_id where order_id = 47"
+
+
         cursor = self.conn.cursor()
         cursor.execute(query, (order_id,))
         result = []
@@ -61,7 +63,7 @@ class OrderDAO:
             return result
 
     def addParts(self, user_id,order_id, part_id, partquantity, price_bought):
-        dao = CartDAO()
+
         cursor = self.conn.cursor()
         query = "insert into orderhas(order_id, part_id, partquantity, price_bought) values (%s, %s, %s, %s)"
         cursor.execute(query, (order_id, part_id, partquantity, price_bought))

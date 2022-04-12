@@ -14,10 +14,11 @@ class OrderController:
 
     def orderInfo_build_dict(self, row):
         result = {}
-        result['part_name'] = row[0]
-        result['part_price'] = row[1]
-        result['partquantity'] = row[2]
-        result['totalPartsPrice'] = row[3]
+        result['part ID'] = row[0]
+        result['Part Name'] = row[1]
+        result['Part Price'] = row[2]
+        result['Quantity'] = row[3]
+        result['Parts Total'] = row[4]
         return result
 
     def newOrder_build_dict(self, row):
