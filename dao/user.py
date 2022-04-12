@@ -30,7 +30,7 @@ class UserDAO:
     def newUser(self, user_password, user_email, full_name, balance, user_rol):
         cursor = self.conn.cursor()
         query = 'insert into "users" (user_password,user_email,full_name, balance, user_rol)' \
-                'values (%s,%s,%s,%s,%s) returning b_id; '
+                'values (%s,%s,%s,%s,%s) returning user_id; '
         cursor.execute(query, (user_password, user_email, full_name, balance, user_rol,))
         user_id = cursor.fetchone()[0]
         self.conn.commit()
