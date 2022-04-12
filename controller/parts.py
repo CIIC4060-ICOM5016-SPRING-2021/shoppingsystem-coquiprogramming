@@ -16,11 +16,11 @@ class PartController:
     def partbyCat_build_dict(self, row):
         result = {}
         # result['cat_id'] = row[0]
-        result['part_id'] = row[1]
-        result['part_name'] = row[2]
-        result['part_price'] = row[3]
-        result['QuantityAvailable'] = row[4]
-        result['Category'] = row[5]
+        result['Part Name'] = row[0]
+        result['Part ID'] = row[1]
+        result['Part Price'] = row[2]
+        result['Product Info'] = row[3]
+        result['Quantity'] = row[4]
         return result
 
     def part_by_price_build_dict(self, row):
@@ -51,6 +51,16 @@ class PartController:
         result['cat_id'] = row[3]
         result['quantity'] = row[4]
         result['part_info'] = row[5]
+        return result
+
+    def partsbyOrder_dict(self, row):
+        result = {}
+        result['Part ID'] = row[0]
+        result['Part Price'] = row[1]
+        result['Category ID'] = row[2]
+        result['Quantity Available'] = row[3]
+        result['Product Info'] = row[4]
+        result['Part Name'] = row[5]
         return result
 
     def getAllParts(self):
@@ -107,7 +117,7 @@ class PartController:
         result_tuples = dao.order_parts_by_name()
         result = []
         for row in result_tuples:
-            dict = self.part_build_dict(row)
+            dict = self.partsbyOrder_dict(row)
             result.append(dict)
 
         return jsonify(parts=result)
@@ -118,7 +128,7 @@ class PartController:
         result_tuples = dao.order_parts_by_name_desc()
         result = []
         for row in result_tuples:
-            dict = self.part_build_dict(row)
+            dict = self.partsbyOrder_dict(row)
             result.append(dict)
 
         return jsonify(parts=result)
@@ -129,7 +139,7 @@ class PartController:
         result_tuples = dao.order_parts_by_price()
         result = []
         for row in result_tuples:
-            dict = self.part_by_price_build_dict(row)
+            dict = self.partsbyOrder_dict(row)
             result.append(dict)
 
         return jsonify(parts=result)
@@ -140,7 +150,7 @@ class PartController:
         result_tuples = dao.order_parts_by_price_desc()
         result = []
         for row in result_tuples:
-            dict = self.part_by_price_build_dict(row)
+            dict = self.partsbyOrder_dict(row)
             result.append(dict)
 
         return jsonify(parts=result)

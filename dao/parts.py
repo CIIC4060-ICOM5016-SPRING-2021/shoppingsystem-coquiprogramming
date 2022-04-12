@@ -40,7 +40,7 @@ class PartDAO:
     """
 
     def getPartbyCatname(self, cat_name):
-        query = "select * from (parts natural inner join categories) where cat_name = %s"
+        query = "select part_name,part_id, part_price, part_info, quantity from (parts natural inner join categories) where cat_name = %s"
         cursor = self.conn.cursor()
         cursor.execute(query, (cat_name,))
         result = []
