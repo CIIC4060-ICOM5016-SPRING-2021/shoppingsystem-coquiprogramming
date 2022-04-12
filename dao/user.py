@@ -55,3 +55,10 @@ class UserDAO:
         self.conn.commit()
         cursor.close()
         return deleted_rows != 0
+
+    def userAdmin(self, user_id):
+        cursor = self.conn.cursor()
+        query = "select user_id, user_rol from users where user_id = %s"
+        cursor.execute(query, (user_id,))
+        admin = cursor.fetchone()[1]
+        return admin
