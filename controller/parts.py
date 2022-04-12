@@ -69,7 +69,7 @@ class PartController:
         result_tuples = dao.getAllParts()
         result = []
         for row in result_tuples:
-            dict = self.part_build_dict(row)
+            dict = self.partsbyOrder_dict(row)
             result.append(dict)
 
         return jsonify(parts=result)
@@ -79,7 +79,7 @@ class PartController:
         result_tuple = dao.getPartById(part_id)
         if not result_tuple:
             return jsonify("ERROR NOT FOUND"), 404
-        part = self.part_build_dict(result_tuple)
+        part = self.partsbyOrder_dict(result_tuple)
         return jsonify(part)
 
     def getPartByCatname(self, cat_name):

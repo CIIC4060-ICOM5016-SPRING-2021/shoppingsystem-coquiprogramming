@@ -149,16 +149,25 @@ class PartDAO:
         """
 
     def deletePart(self, part_id):
-        query = "delete from parts where part_id = %s;"
         cursor = self.conn.cursor()
+        prequery = "select part_id from wishlist where part_id = %s"
+        cursor.execute(prequery, (part_id,))
+        if cursor.rowcount !=0:
+            wishlist = "delete from wishlist where part_id = %s"
+            cursor.execute(wishlist, (part_id,))
+            self.conn.commit()
+
+        query = "delete from parts where part_id = %s;"
         cursor.execute(query, ([part_id]))
         self.conn.commit()
         return part_id
 
+
+
     def removeQuantity(self, part_id, bought):
         query = "update parts set quantity = (quantity - %s) where part_id = %s"
         cursor = self.conn.cursor()
-        cursor.execute(query, (part_id, bought,))
+        cursor.execute(query, (bought, part_id,))
         self.conn.commit()
         print("Quantity Removed for:",part_id, "Quantity = ", bought)
         return part_id

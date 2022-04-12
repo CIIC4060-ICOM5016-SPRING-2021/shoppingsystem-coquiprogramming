@@ -11,7 +11,7 @@ class WishListDAO:
         self.conn = psycopg2.connect(connection_url)
 
     def viewWishList(self, user_id):
-        query = "select part_id from wishlist where user_id = '%s'"
+        query = "select wishlist.part_id, part_name, part_price from wishlist left join parts p on p.part_id = wishlist.part_id where user_id = %s"
         cursor = self.conn.cursor()
         cursor.execute(query, (user_id,))
         result = []
@@ -29,7 +29,7 @@ class WishListDAO:
             cursor.execute(query, (user_id, part_id,))
 
             self.conn.commit()
-            return user_id
+            return part_id
 
     def deletePartFromWishList(self, user_id, part_id):
         query = "delete from wishlist where user_id = %s AND part_id = %s;"

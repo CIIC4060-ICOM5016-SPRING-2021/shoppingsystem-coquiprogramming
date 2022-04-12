@@ -249,7 +249,7 @@ def wishlistDeletePart_handler(user_id, part_id):
 """
     ROUTE TO CLEAR WISHLIST
 """
-@app.route('/PartsApp/WishList/<int:user_id>/', methods=['DELETE'])
+@app.route('/PartsApp/WishList/Clear/<int:user_id>/', methods=['DELETE'])
 def wishlistClearAllParts_handler(user_id):
     if request.method == 'DELETE':
         return WishListController().clearAllPartsFromWishList(user_id)
@@ -259,7 +259,7 @@ def wishlistClearAllParts_handler(user_id):
 """
     ROUTE TO VIEW WISHLIST
 """
-@app.route('/PartsApp/ViewWishList/<int:user_id>/', methods=['GET']) #checked works
+@app.route('/PartsApp/WishList/View/<int:user_id>/', methods=['GET']) #checked works
 def viewUserWishList(user_id):
     if request.method == 'GET':
         return WishListController().viewWishList(user_id)

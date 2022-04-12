@@ -51,8 +51,9 @@ class OrderDAO:
                 part_id = row[0]
                 part_quantity = row[1]
                 price_bought = row[2]
+                partname = row[3]
                 print("test id", part_id, part_quantity, price_bought)
-                self.addParts(user_id, order_id, part_id,part_quantity, price_bought)
+                self.addParts(user_id, order_id, part_id,part_quantity, price_bought, partname)
                 daopart.removeQuantity(part_id,part_quantity)
                 result.append(row)
 
@@ -62,11 +63,11 @@ class OrderDAO:
             print("DAO Create Order result = ", result)
             return result
 
-    def addParts(self, user_id,order_id, part_id, partquantity, price_bought):
+    def addParts(self, user_id,order_id, part_id, partquantity, price_bought,partname):
 
         cursor = self.conn.cursor()
-        query = "insert into orderhas(order_id, part_id, partquantity, price_bought) values (%s, %s, %s, %s)"
-        cursor.execute(query, (order_id, part_id, partquantity, price_bought))
+        query = "insert into orderhas(order_id, part_id, partquantity, price_bought,partname) values (%s, %s, %s, %s, %s)"
+        cursor.execute(query, (order_id, part_id, partquantity, price_bought,partname))
 
         self.conn.commit()
 
