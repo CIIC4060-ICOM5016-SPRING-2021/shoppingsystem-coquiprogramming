@@ -73,7 +73,16 @@ class OrderDAO:
 
         print("Esta corriendo addparts")
         return part_id
+    def deleteOrder(self, order_id):
+        cursor = self.conn.cursor()
 
+        prequery = "delete from orderhas where order_id = %s"
+        cursor.execute(prequery, (order_id,))
+        if cursor.rowcount !=0:
+            query = "delete from orders where order_id = %s"
+            cursor.execute(query, (order_id,))
+            self.conn.commit()
+            return order_id
 
 
 

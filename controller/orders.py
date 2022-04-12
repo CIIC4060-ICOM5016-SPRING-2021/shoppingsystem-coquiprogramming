@@ -62,5 +62,12 @@ class OrderController:
             result_list.append(result)
         return jsonify(OrderCompleted=result_list)
 
+    def deleteOrder(self, order_id):
+        dao = OrderDAO()
+        result_tuple = dao.deleteOrder(order_id)
+        if not result_tuple:
+            return jsonify(Error = "NO ORDER FOUND")
+        return jsonify("ORDER ", order_id, " DELETED FROM RECORD")
+
 
 
