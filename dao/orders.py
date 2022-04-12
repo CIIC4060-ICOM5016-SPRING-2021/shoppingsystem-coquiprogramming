@@ -22,8 +22,8 @@ class OrderDAO:
         return result
 
     def getOrderInfoById(self, order_id):
-        query = "select orderhas.part_id,part_name, price_bought, partquantity, partquantity * price_bought as partTotal from " \
-                "orderhas left join parts p on p.part_id = orderhas.part_id where order_id = 47"
+        query = "select orderhas.part_id,partname, price_bought, partquantity, partquantity * price_bought as partTotal from " \
+                "orderhas left join parts p on p.part_id = orderhas.part_id where order_id = %s"
 
 
         cursor = self.conn.cursor()
