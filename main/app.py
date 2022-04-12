@@ -159,13 +159,19 @@ def order_handler():
     else:
         return jsonify("Method Not Supported"), 405
 
-
+"""
+    ROUTE TO CREATE GET ORDER INFO
+"""
 @app.route('/PartsApp/Order/<int:order_id>', methods=['GET'])
 def orderinfo_byid_handler(order_id):
     if request.method == 'GET':
         return OrderController().getOrderInfoById(order_id)
     else:
         return jsonify("Method Not Supported"), 405
+
+"""
+    ROUTE TO CREATE NEW ORDER
+"""
 
 @app.route('/PartsApp/newOrder/<int:user_id>', methods=['GET', 'PUT', 'POST'])
 def createOrder_handler(user_id):
@@ -187,6 +193,9 @@ def cart_handler():
     else:
         return jsonify("Method Not Supported"), 405
 
+"""
+    ROUTE TO REMOVE PART FROM CART
+"""
 
 @app.route('/PartsApp/Cart/<int:user_id>/<int:part_id>', methods=['DELETE'])
 def cartDeletePart_handler(user_id, part_id):
@@ -195,7 +204,9 @@ def cartDeletePart_handler(user_id, part_id):
     else:
         return jsonify("Method Not Supported"), 405
 
-
+"""
+    ROUTE TO CLEAR CART
+"""
 @app.route('/PartsApp/Cart/<int:user_id>/', methods=['DELETE'])
 def cartClearAllParts_handler(user_id):
     if request.method == 'DELETE':
@@ -203,7 +214,9 @@ def cartClearAllParts_handler(user_id):
     else:
         return jsonify("Method Not Supported"), 405
 
-
+"""
+    ROUTE TO VIEW USER CART
+"""
 @app.route('/PartsApp/ViewCart/<int:user_id>/', methods=['GET'])
 def viewUserCart(user_id):
     if request.method == 'GET':
@@ -223,7 +236,9 @@ def wishlist_handler():
     else:
         return jsonify("Method Not Supported"), 405
 
-
+"""
+    ROUTE TO REMOVE PART FROM WISHLIST
+"""
 @app.route('/PartsApp/WishList/<int:user_id>/<int:part_id>', methods=['DELETE']) #checked works
 def wishlistDeletePart_handler(user_id, part_id):
     if request.method == 'DELETE':
@@ -231,7 +246,9 @@ def wishlistDeletePart_handler(user_id, part_id):
     else:
         return jsonify("Method Not Supported"), 405
 
-
+"""
+    ROUTE TO CLEAR WISHLIST
+"""
 @app.route('/PartsApp/WishList/<int:user_id>/', methods=['DELETE'])
 def wishlistClearAllParts_handler(user_id):
     if request.method == 'DELETE':
@@ -239,7 +256,9 @@ def wishlistClearAllParts_handler(user_id):
     else:
         return jsonify("Method Not Supported"), 405
 
-
+"""
+    ROUTE TO VIEW WISHLIST
+"""
 @app.route('/PartsApp/ViewWishList/<int:user_id>/', methods=['GET']) #checked works
 def viewUserWishList(user_id):
     if request.method == 'GET':
@@ -248,7 +267,11 @@ def viewUserWishList(user_id):
         return jsonify("Method Not Supported"), 405
 
 
-''' GLOBAL RANKING ROUTES'''
+"""
+    ROUTE GLOBAL RANKS
+    
+    MOST EXPENSIVE
+"""
 
 @app.route('/PartsApp/GlobalRank/MostExpensive', methods=['GET'])
 def getMostExpensive_handler():
@@ -257,13 +280,19 @@ def getMostExpensive_handler():
     else:
         return jsonify("Method Not Supported"), 405
 
-
+"""
+    CHEAPEST PART
+"""
 @app.route('/PartsApp/GlobalRank/Cheapest', methods=['GET'])
 def getCheapest_handler():
     if request.method == 'GET':
         return GlobalController().getCheapest()
     else:
         return jsonify("Method Not Supported"), 405
+
+    """
+        ROUTE TO MOST LIKED PARTS
+    """
 
 @app.route('/PartsApp/GlobalRank/MostLiked', methods=['GET'])
 def getMostLiked_handler():
@@ -272,6 +301,9 @@ def getMostLiked_handler():
     else:
         return jsonify("Method Not Supported"), 405
 
+"""
+    ROUTE TOP PRODUCT BOUGHT
+"""
 @app.route('/PartsApp/GlobalRank/topProductBought', methods=['GET'])
 def getTopProductBought_handler():
         if request.method == 'GET':
@@ -279,6 +311,9 @@ def getTopProductBought_handler():
         else:
             return jsonify("Method Not Supported"), 405
 
+"""
+    ROUTE TOP CATEGORY BOUGHT
+"""
 @app.route('/PartsApp/GlobalRank/topCatBought', methods=['GET'])
 def getTopCatBought_handler():
         if request.method == 'GET':
