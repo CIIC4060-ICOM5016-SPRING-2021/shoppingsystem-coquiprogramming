@@ -167,6 +167,13 @@ def orderinfo_byid_handler(order_id):
     else:
         return jsonify("Method Not Supported"), 405
 
+@app.route('/PartsApp/newOrder/<int:user_id>', methods=['GET', 'PUT', 'POST'])
+def createOrder_handler(user_id):
+    if request.method == 'POST':
+        return OrderController().createOrder(user_id)
+    else:
+        return jsonify("Method Not Supported"), 405
+
 
 """
     Route to cart.

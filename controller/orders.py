@@ -1,3 +1,5 @@
+import json
+
 from flask import jsonify
 from dao.orders import OrderDAO
 
@@ -16,6 +18,13 @@ class OrderController:
         result['part_price'] = row[1]
         result['partquantity'] = row[2]
         result['totalPartsPrice'] = row[3]
+        return result
+
+    def newOrder_build_dict(self, row):
+        result={}
+        result['part_id'] = row[0]
+        result['partquantity']= row[1]
+        result['price_bought'] = row[2]
         return result
 
     def getAllOrders(self):
@@ -40,4 +49,17 @@ class OrderController:
             result = self.orderInfo_build_dict(row)
             result_list.append(result)
         return jsonify(Orderhas=result_list)
+
+    def createOrder(self, user_id):
+        dao = OrderDAO()
+        result_tuple = dao.createOrder(user_id)
+        if not result_tuple:
+            return jsonify(Error="No Such User Found"), 404
+        result_list=[]
+        for row in result_tuple:
+            result = self.newOrder_build_dict(row)
+            result_list.append(result)
+        return jsonify(OrderCompleted=result_list)
+
+
 

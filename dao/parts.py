@@ -154,3 +154,11 @@ class PartDAO:
         cursor.execute(query, ([part_id]))
         self.conn.commit()
         return part_id
+
+    def removeQuantity(self, part_id, bought):
+        query = "update parts set quantity = (quantity - %s) where part_id = %s"
+        cursor = self.conn.cursor()
+        cursor.execute(query, (part_id, bought,))
+        self.conn.commit()
+        print("Quantity Removed for:",part_id, "Quantity = ", bought)
+        return part_id

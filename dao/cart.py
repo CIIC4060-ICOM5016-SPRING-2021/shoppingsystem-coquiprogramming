@@ -48,3 +48,23 @@ class CartDAO:
         rowcount = cursor.rowcount
         self.conn.commit()
         return rowcount != 0
+
+    def getCartTotal(self, user_id):
+        query= "select sum(part_price * quantity) from (select p.part_id, part_price, cart.quantity from " \
+                 "cart left join parts p on p.part_id = cart.part_id where user_id = %s) as tcart;"
+        cursor = self.conn.cursor()
+        cursor.execute(query, (user_id,))
+        self.conn.commit()
+        total = cursor.fetchone()[0]
+        print(total)
+        return total
+
+    def getCartParts(self, user_id):
+        query = "select cart.part_id, cart.quantity, part_price from cart left join parts p on p.part_id = cart.part_id where user_id = %s"
+        cursor = self.conn.cursor()
+        cursor.execute(query, (user_id,))
+        result = []
+        for row in cursor:
+            print("daocart",row)
+            result.append(row)
+        return result

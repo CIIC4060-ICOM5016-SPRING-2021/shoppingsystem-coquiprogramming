@@ -18,6 +18,13 @@ class CartController:
         result['quantity'] = row[1]
         return result
 
+    def viewPart_cart_dict(self, row):
+        result = {}
+        #result['user_id'] = row[0]
+        result['part_id'] = row[0]
+        result['quantity'] = row[1]
+        return result
+
     def newPart(self, json):
         user_id = json['user_id']
         part_id = json['part_id']
