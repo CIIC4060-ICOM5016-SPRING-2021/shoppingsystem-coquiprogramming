@@ -68,3 +68,17 @@ class CartDAO:
             print("daocart",row)
             result.append(row)
         return result
+
+    def stockAvailable(self, user_id):
+        cursor =  self.conn.cursor()
+        cartparts = self.getCartParts(user_id)
+        for row in cartparts:
+            partid = row[0]
+            cartquantity = row[1]
+            query = "select quantity from parts where part_id = %s"
+            cursor.execute(query, (partid,))
+            partquantity = cursor.fetchone()[0]
+            if(cartquantity > partquantity):
+                return False
+            else:
+                return True

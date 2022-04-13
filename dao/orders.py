@@ -41,9 +41,11 @@ class OrderDAO:
             daouser = UserDAO()
             balance = daouser.getBalance(user_id)
             total = dao.getCartTotal(user_id)
+            stock = dao.stockAvailable(user_id)
             print("Dao Cart Balance", balance)
             print("TOTAL EN CREATEORDER", total)
-            if(balance >= total):
+            print("hay stock?", stock)
+            if(balance >= total) & stock:
                 balancequery = "update users set balance = (balance - %s) where user_id = %s"
                 cursor.execute(balancequery, (total, user_id,))
                 query = "insert into orders (user_id, total) values (%s,%s) returning order_id"
