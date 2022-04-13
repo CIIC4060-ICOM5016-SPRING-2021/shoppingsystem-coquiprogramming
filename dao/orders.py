@@ -3,6 +3,7 @@ import psycopg2
 
 from dao.cart import CartDAO
 from dao.parts import PartDAO
+from dao.user import UserDAO
 
 
 class OrderDAO:
@@ -37,31 +38,34 @@ class OrderDAO:
             cursor = self.conn.cursor()
             dao = CartDAO()
             daopart = PartDAO()
+            daouser = UserDAO()
+            balance = daouser.getBalance(user_id)
             total = dao.getCartTotal(user_id)
-            print(total)
-            query = "insert into orders (user_id, total) values (%s,%s) returning order_id"
-
-            cursor.execute(query, (user_id,total),)
-            order_id = cursor.fetchone()[0]
-            print(order_id)
-            parts = dao.getCartParts(user_id)
-            result = []
-            for row in parts:
-                print("daoordertest", row)
-                part_id = row[0]
-                part_quantity = row[1]
-                price_bought = row[2]
-                partname = row[3]
-                print("test id", part_id, part_quantity, price_bought)
-                self.addParts(user_id, order_id, part_id,part_quantity, price_bought, partname)
-                daopart.removeQuantity(part_id,part_quantity)
-                result.append(row)
-
-
-            self.conn.commit()
-            dao.clearAllPartsFromCart(user_id)
-            print("DAO Create Order result = ", result)
-            return result
+            print("Dao Cart Balance", balance)
+            print("TOTAL EN CREATEORDER", total)
+            if(balance >= total):
+                balancequery = "update users set balance = (balance - %s) where user_id = %s"
+                cursor.execute(balancequery, (total, user_id,))
+                query = "insert into orders (user_id, total) values (%s,%s) returning order_id"
+                cursor.execute(query, (user_id,total),)
+                order_id = cursor.fetchone()[0]
+                print(order_id)
+                parts = dao.getCartParts(user_id)
+                result = []
+                for row in parts:
+                    print("daoordertest", row)
+                    part_id = row[0]
+                    part_quantity = row[1]
+                    price_bought = row[2]
+                    partname = row[3]
+                    print("test id", part_id, part_quantity, price_bought)
+                    self.addParts(user_id, order_id, part_id,part_quantity, price_bought, partname)
+                    daopart.removeQuantity(part_id,part_quantity)
+                    result.append(row)
+                self.conn.commit()
+                dao.clearAllPartsFromCart(user_id)
+                print("DAO Create Order result = ", result)
+                return result
 
     def addParts(self, user_id,order_id, part_id, partquantity, price_bought,partname):
 

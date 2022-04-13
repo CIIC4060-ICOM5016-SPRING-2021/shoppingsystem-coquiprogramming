@@ -55,7 +55,7 @@ class OrderController:
         dao = OrderDAO()
         result_tuple = dao.createOrder(user_id)
         if not result_tuple:
-            return jsonify(Error="No Such User Found"), 404
+            return jsonify(Error="Order Could not be completed because of balance or stock"), 404
         result_list=[]
         for row in result_tuple:
             result = self.newOrder_build_dict(row)

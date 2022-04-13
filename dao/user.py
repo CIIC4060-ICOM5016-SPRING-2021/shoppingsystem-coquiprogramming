@@ -110,4 +110,11 @@ class UserDAO:
         for row in cursor:
             result.append(row)
         return result
+    def getBalance(self, user_id):
+        cursor = self.conn.cursor()
+        query = "select balance from users where user_id = %s"
+        cursor.execute(query, (user_id,))
+        self.conn.commit()
+        balance = cursor.fetchone()[0]
+        return balance
 

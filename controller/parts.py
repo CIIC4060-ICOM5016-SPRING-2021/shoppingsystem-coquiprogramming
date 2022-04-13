@@ -170,11 +170,11 @@ class PartController:
         return jsonify(json), 201
 
     def updatePart(self, part_id, json):
-        part_name = json['part_name']
-        part_price = json['part_price']
-        cat_id = json['cat_id']
-        quantity = json['quantity']
-        part_info = json['part_info']
+        part_name = json['Part Name']
+        part_price = json['Part Price']
+        cat_id = json['Category ID']
+        quantity = json['Quantity Available']
+        part_info = json['Product Info']
 
         dao = PartDAO()
         result = dao.updatePart(part_id, part_name, part_price, cat_id, quantity, part_info)
