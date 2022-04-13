@@ -14,6 +14,29 @@ class UserController(object):
         result['user_rol'] = row[5]
         return result
 
+    #statistics dict
+
+    def topPartBoughtByUser_build_dict(self, row):
+        result = {}
+        result['Part Name'] = row[0]
+        result['Part ID'] = row[1]
+        result['Bought'] = row[2]
+        return result
+
+    def topCatBoughtByUser_build_dict(self, row):
+        result = {}
+        result['Cat ID'] = row[0]
+        result['Category'] = row[1]
+        result['Bought'] = row[2]
+        return result
+
+    def mostExpensivePartUser_build_dict(self, row):
+        result = {}
+        result['Part ID'] = row[0]
+        result['Part Name'] = row[1]
+        result['Price'] = row[2]
+        return result
+
     def getAllUser(self):
         dao = UserDAO()
 
@@ -91,3 +114,44 @@ class UserController(object):
             return jsonify(Error="User Has Been Successfully Deleted"), 200
         else:
             return jsonify(Error="No Such User Found"), 404
+
+    # statistics
+    def getMostBoughtPartUser(self, user_id):
+        dao = UserDAO()
+
+        result_tuples = dao.getMostBoughtPartUser(user_id)
+        result = []
+        for row in result_tuples:
+            dict = self.topPartBoughtByUser_build_dict(row)
+            result.append(dict)
+        return jsonify(Top10=result)
+
+    def getMostBoughtCategoryUser(self, user_id):
+        dao = UserDAO()
+
+        result_tuples = dao.getMostBoughtCategoryUser(user_id)
+        result = []
+        for row in result_tuples:
+            dict = self.topCatBoughtByUser_build_dict(row)
+            result.append(dict)
+        return jsonify(Top10=result)
+
+    def getMostExpensivePartUser(self, user_id):
+        dao = UserDAO()
+        result_tuples = dao.getMostExpensivePartUser(user_id)
+        result = []
+        for row in result_tuples:
+            res = self.mostExpensivePartUser_build_dict(row)
+            result.append(res)
+
+        return jsonify(User=result)
+
+    def getCheapestPartUser(self, user_id):
+        dao = UserDAO()
+        result_tuples = dao.getCheapestPartUser(user_id)
+        result = []
+        for row in result_tuples:
+            res = self.mostExpensivePartUser_build_dict(row)
+            result.append(res)
+
+        return jsonify(User=result)

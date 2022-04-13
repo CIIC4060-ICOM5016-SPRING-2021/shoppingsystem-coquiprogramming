@@ -133,8 +133,7 @@ def parts_by_price_descending():
     Route to get all users
 """
 
-
-@app.route('/PartsApp/User', methods=['GET', 'POST', 'PUT'])
+@app.route('/PartsApp/User', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def user_handler():
     if request.method == 'GET':
         return UserController().getAllUser()
@@ -145,7 +144,33 @@ def user_handler():
     else:
         return jsonify("Method Not Supported"), 405
 
+@app.route('/PartsApp/User/topPartBought/<int:user_id>', methods=['GET'])
+def getTopPartBoughtByUser_handler(user_id):
+        if request.method == 'GET':
+            return UserController().getMostBoughtPartUser(user_id)
+        else:
+            return jsonify("Method Not Supported"), 405
 
+@app.route('/PartsApp/User/topCatBought/<int:user_id>', methods=['GET'])
+def getTopCatBoughtByUser_handler(user_id):
+        if request.method == 'GET':
+            return UserController().getMostBoughtCategoryUser(user_id)
+        else:
+            return jsonify("Method Not Supported"), 405
+
+@app.route('/PartsApp/User/mostExpensivePart/<int:user_id>', methods=['GET'])
+def getMostExpensivePartUser_handler(user_id):
+        if request.method == 'GET':
+            return UserController().getMostExpensivePartUser(user_id)
+        else:
+            return jsonify("Method Not Supported"), 405
+
+@app.route('/PartsApp/User/CheapestPart/<int:user_id>', methods=['GET'])
+def getCheapestPartUser_handler(user_id):
+        if request.method == 'GET':
+            return UserController().getCheapestPartUser(user_id)
+        else:
+            return jsonify("Method Not Supported"), 405
 """
     Route to get all orders
 """

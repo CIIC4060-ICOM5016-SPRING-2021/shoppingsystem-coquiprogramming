@@ -62,3 +62,52 @@ class UserDAO:
         cursor.execute(query, (user_id,))
         admin = cursor.fetchone()[1]
         return admin
+
+    # statistics
+
+    def getMostBoughtPartUser(self, user_id):
+        cursor = self.conn.cursor()
+        query = " select part_name, orderhas.part_id, sum(partquantity) as bought " \
+                " from (orderhas natural inner join parts) natural inner join orders " \
+                " where parts.part_id = orderhas.part_id  AND orderhas.order_id = orders.order_id AND user_id = %s " \
+                " group by orderhas.part_id,part_name order by bought desc limit 10"
+        cursor.execute(query, (user_id,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getMostBoughtCategoryUser(self, user_id):
+        cursor = self.conn.cursor()
+        query = " select categories.cat_id, categories.cat_name, sum(partquantity) as bought" \
+                " from ((orderhas natural inner join parts) natural inner join orders) natural inner join categories" \
+                " where parts.cat_id = categories.cat_id  AND orderhas.order_id = orders.order_id AND user_id = %s" \
+                " group by categories.cat_id,categories.cat_name order by bought desc limit 10"
+        cursor.execute(query, (user_id,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getMostExpensivePartUser(self, user_id):
+        cursor = self.conn.cursor()
+        query = " select part_id, part_name, price_bought from (orderhas natural inner join parts) natural inner join orders " \
+                " where  user_id = %s " \
+                " and part_price = (select max(part_price) from (orderhas natural inner join parts) natural inner join orders) "
+        cursor.execute(query, (user_id,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getCheapestPartUser(self,user_id):
+        cursor = self.conn.cursor()
+        query = " select part_id, part_name, price_bought from (orderhas natural inner join parts) natural inner join orders" \
+                " where  user_id = %s " \
+                " and part_price = (select min(part_price) from (orderhas natural inner join parts) natural inner join orders) "
+        cursor.execute(query, (user_id,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
