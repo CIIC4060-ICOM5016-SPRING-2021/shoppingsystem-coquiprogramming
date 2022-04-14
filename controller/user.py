@@ -59,25 +59,26 @@ class UserController(object):
         return jsonify(User=user)
 
     def newUser(self, json: dict):
-        aUser_id = json['user_id']
+        aUser_id = json['Admin ID']
         user_password = json['user_password']
         user_email = json['user_email']
         full_name = json['full_name']
         balance = json['balance']
         user_rol = json['user_rol']
         dao = UserDAO()
-        result = dao.newUser(user_password, user_email, full_name, balance, user_rol)
         admin = dao.userAdmin(aUser_id)
-        user_id = json['user_id']
-        if result & admin:
-            return jsonify({
-            'user_id': user_id,
-           'user_password': user_password,
-          'user_email': user_email,
-          'full_name': full_name,
-          'balance': balance,
-          'user_rol': user_rol
-         }), 200
+        if admin:
+            result = dao.newUser(user_password, user_email, full_name, balance, user_rol)
+            if result:
+                user_id = result
+                return jsonify({
+                'user_id': user_id,
+               'user_password': user_password,
+              'user_email': user_email,
+              'full_name': full_name,
+              'balance': balance,
+              'user_rol': user_rol
+             }), 200
         else:
             return jsonify(Error='User does not have access to create accounts'), 406
 
@@ -90,12 +91,6 @@ class UserController(object):
         balance = json['balance']
         user_rol = json['user_rol']
 
-        print("ESTE ES EL USER", user_id)
-        print("ESTE ES EL PASSWORD", user_password)
-        print(user_email)
-        print(full_name)
-        print(balance)
-        print(user_rol)
         dao = UserDAO()
 
         admin = dao.userAdmin(aUser_id)
@@ -126,6 +121,8 @@ class UserController(object):
             result = dao.deleteUserById(user_id)
             if result:
                 return jsonify(Error="User Has Been Successfully Deleted"), 200
+            if not result:
+                return jsonify(Error = "USER NOT FOUND"), 404
         else:
             return jsonify(Error="No Such User Found or Not Admin"), 404
 
