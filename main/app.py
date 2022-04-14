@@ -141,6 +141,8 @@ def user_handler():
         return UserController().newUser(request.json)
     elif request.method == 'PUT':
         return UserController().updateUser(request.json)
+    elif request.method == 'DELETE':
+        return UserController().deleteUserById(request.json)
     else:
         return jsonify("Method Not Supported"), 405
 

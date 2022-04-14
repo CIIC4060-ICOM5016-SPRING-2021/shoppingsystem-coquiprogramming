@@ -115,17 +115,19 @@ class UserController(object):
         else:
             return jsonify(Error='Unable to Update User'), 404
 
-    def deleteUserById(self, user_id):
-        if type(user_id) == int:
-            user_id = (user_id,)
-        else:
-            user_id = tuple(user_id)
+    def deleteUserById(self, json):
         dao = UserDAO()
-        result = dao.deleteUserById(user_id)
-        if result:
-            return jsonify(Error="User Has Been Successfully Deleted"), 200
+        user_id = json['user_id']
+        aUser_id = json['Admin ID']
+
+        admin = dao.userAdmin(aUser_id)
+
+        if admin:
+            result = dao.deleteUserById(user_id)
+            if result:
+                return jsonify(Error="User Has Been Successfully Deleted"), 200
         else:
-            return jsonify(Error="No Such User Found"), 404
+            return jsonify(Error="No Such User Found or Not Admin"), 404
 
     # statistics
     def getMostBoughtPartUser(self, user_id):

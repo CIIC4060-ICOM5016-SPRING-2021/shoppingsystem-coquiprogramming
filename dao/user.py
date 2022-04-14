@@ -2,6 +2,7 @@ import psycopg2
 from config.pg import pg_config
 
 
+
 class UserDAO:
     def __init__(self):
         connection_url = "dbname =%s user=%s password=%s port =%s host=%s" \
@@ -50,12 +51,40 @@ class UserDAO:
 
     def deleteUserById(self, user_id):
         cursor = self.conn.cursor()
+        order_id = self.getOrdersByUserId(user_id)
+        for row in order_id:
+            order_id = row[0]
+            self.deleteOrder(order_id)
+
         query = 'delete from "users" where user_id = %s;'
         cursor.execute(query, (user_id,))
         deleted_rows = cursor.rowcount
         self.conn.commit()
         cursor.close()
         return deleted_rows != 0
+
+    #MISMO METODO DE ORDERS, SOLO QUE NO ME PERMITE DAR IMPORT DAO ORDERS POR CIRCULAR IMPORT.
+
+    def getOrdersByUserId(self, user_id):
+        query = "select order_id, total from orders where user_id = %s"
+        cursor = self.conn.cursor()
+        cursor.execute(query, ([user_id]))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def deleteOrder(self, order_id):
+        cursor = self.conn.cursor()
+
+        prequery = "delete from orderhas where order_id = %s"
+        cursor.execute(prequery, (order_id,))
+        if cursor.rowcount !=0:
+            query = "delete from orders where order_id = %s"
+            cursor.execute(query, (order_id,))
+            self.conn.commit()
+            return order_id
+
 
     def userAdmin(self, user_id):
         cursor = self.conn.cursor()
