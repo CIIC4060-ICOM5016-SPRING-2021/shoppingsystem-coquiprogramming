@@ -189,14 +189,21 @@ def order_handler():
 """
     ROUTE TO CREATE GET ORDER INFO
 """
-@app.route('/PartsApp/Order/<int:order_id>', methods=['GET', 'DELETE'])
+@app.route('/PartsApp/Order/<int:order_id>', methods=['GET'])
 def order_byid_handler(order_id):
     if request.method == 'GET':
         return OrderController().getOrderInfoById(order_id)
-    elif request.method == 'DELETE':
-        return OrderController().deleteOrder(order_id)
     else:
         return jsonify("Method Not Supported"), 405
+
+
+@app.route('/PartsApp/Order', methods=['DELETE'])
+def deleteorder_handler():
+    if request.method == 'DELETE':
+        return OrderController().deleteOrder(request.json)
+    else:
+        return jsonify("Method Not Supported"), 405
+
 
 @app.route('/PartsApp/Order/getOrders/<int:user_id>', methods=['GET'])
 def order_byuser_handler(user_id):

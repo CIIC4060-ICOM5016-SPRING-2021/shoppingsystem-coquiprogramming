@@ -2,6 +2,7 @@ import json
 
 from flask import jsonify
 from dao.orders import OrderDAO
+from dao.user import UserDAO
 
 
 class OrderController:
@@ -85,12 +86,21 @@ class OrderController:
             result_list.append(result)
         return jsonify(OrderCompleted=result_list)
 
-    def deleteOrder(self, order_id):
+    def deleteOrder(self, json):
+        aUser_id = json['Admin ID']
+        order_id = json['Order ID']
         dao = OrderDAO()
-        result_tuple = dao.deleteOrder(order_id)
-        if not result_tuple:
-            return jsonify(Error = "NO ORDER FOUND")
-        return jsonify("ORDER ", order_id, " DELETED FROM RECORD")
+        userdao = UserDAO()
+        admin = userdao.userAdmin(aUser_id)
+        print("DELETE ORDER USER ADMIN ", admin)
+        if admin:
+            result_tuple = dao.deleteOrder(order_id)
+            if not result_tuple:
+                return jsonify(Error = "NO ORDER FOUND"),404
+            elif result_tuple:
+                return jsonify("ORDER ", result_tuple, " DELETED FROM RECORD"), 200
+        elif not admin:
+            return jsonify(Error = "NOT ADMIN"), 404
 
 
 
