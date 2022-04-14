@@ -196,6 +196,13 @@ def order_byid_handler(order_id):
     else:
         return jsonify("Method Not Supported"), 405
 
+@app.route('/PartsApp/Order/getOrders/<int:user_id>', methods=['GET'])
+def order_byuser_handler(user_id):
+    if request.method == 'GET':
+        return OrderController().getOrderByUser(user_id)
+    else:
+        return jsonify("Method Not Supported"), 405
+
 """
     ROUTE TO CREATE NEW ORDER
 """

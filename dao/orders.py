@@ -21,11 +21,26 @@ class OrderDAO:
         for row in cursor:
             result.append(row)
         return result
+    def getOrderTotal(self, order_id):
+        query = "select total from orders where order_id  = %s"
+        cursor = self.conn.cursor()
+        cursor.execute(query, ([order_id]),)
+
+        orderTotal = cursor.fetchone()[0]
+        return orderTotal
+
+    def getOrdersByUserId(self, user_id):
+        query = "select order_id, total from orders where user_id = %s"
+        cursor=self.conn.cursor()
+        cursor.execute(query, ([user_id]))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     def getOrderInfoById(self, order_id):
         query = "select orderhas.part_id,partname, price_bought, partquantity, partquantity * price_bought as partTotal from " \
                 "orderhas left join parts p on p.part_id = orderhas.part_id where order_id = %s"
-
 
         cursor = self.conn.cursor()
         cursor.execute(query, (order_id,))
