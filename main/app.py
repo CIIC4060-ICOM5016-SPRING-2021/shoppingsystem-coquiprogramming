@@ -145,6 +145,12 @@ def user_handler():
         return UserController().deleteUserById(request.json)
     else:
         return jsonify("Method Not Supported"), 405
+@app.route('/PartsApp/User/<int:user_id>', methods=['GET'])
+def getuserbyid_handler(user_id):
+    if request.method =='GET':
+        return UserController().getUserById(user_id)
+    else:
+        return jsonify("Method Not Supported"),405
 
 @app.route('/PartsApp/User/topPartBought/<int:user_id>', methods=['GET'])
 def getTopPartBoughtByUser_handler(user_id):
