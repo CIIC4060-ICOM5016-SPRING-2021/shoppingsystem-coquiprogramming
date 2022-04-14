@@ -40,9 +40,10 @@ class UserDAO:
     def updateUser(self, user_id, user_password, user_email, full_name, balance, user_rol):
         cursor = self.conn.cursor()
         query = 'update "users" ' \
-                'set user_password = %s, user_email = %s, full_name= %s, balance = %s, user_rol= %s ' \
+                'set  user_password = %s, user_email= %s, full_name = %s, balance= %s, user_rol = %s ' \
                 'where user_id = %s '
-        cursor.execute(query, (user_id, user_password, user_email, full_name, balance, user_rol))
+
+        cursor.execute(query, (user_password, user_email, full_name, balance, user_rol, user_id))
         self.conn.commit()
         cursor.close()
         return True

@@ -81,17 +81,29 @@ class UserController(object):
         else:
             return jsonify(Error='User does not have access to create accounts'), 406
 
-    def updateUser(self, json):
-        user_id = json['user_id']
+    def updateUser(self, json: dict):
+        aUser_id = json['Admin ID']
+        user_id = json ['user_id']
         user_password = json['user_password']
         user_email = json['user_email']
         full_name = json['full_name']
         balance = json['balance']
         user_rol = json['user_rol']
 
+        print("ESTE ES EL USER", user_id)
+        print("ESTE ES EL PASSWORD", user_password)
+        print(user_email)
+        print(full_name)
+        print(balance)
+        print(user_rol)
         dao = UserDAO()
+
+        admin = dao.userAdmin(aUser_id)
+
+        print("UPDATE USER ADMIN : ", admin)
+
         result = dao.updateUser(user_id, user_password, user_email, full_name, balance, user_rol)
-        if result:
+        if result & admin:
             return jsonify({
                 'user_id': user_id,
                 'user_password': user_password,
