@@ -1,5 +1,4 @@
 import psycopg2
-
 from config.pg import pg_config
 
 

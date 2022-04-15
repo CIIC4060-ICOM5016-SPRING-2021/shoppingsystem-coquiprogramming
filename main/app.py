@@ -23,7 +23,7 @@ def handler():
 """
 
 
-@app.route('/PartsApp/Parts', methods=['GET', 'POST', 'DELETE'])
+@app.route('/CoquiProgramming/Parts', methods=['GET', 'POST', 'DELETE'])
 def parts_handler():
     if request.method == 'GET':
         return PartController().getAllParts()
@@ -38,7 +38,7 @@ def parts_handler():
 """
 
 
-@app.route('/PartsApp/Parts/<int:part_id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/CoquiProgramming/Parts/<int:part_id>', methods=['GET', 'PUT', 'DELETE'])
 def parts_byid_handler(part_id):
     if request.method == 'GET':
         return PartController().getPartById(part_id)
@@ -55,7 +55,7 @@ def parts_byid_handler(part_id):
 """
 
 
-@app.route('/PartsApp/Parts/<string:cat_name>', methods=['GET'])
+@app.route('/CoquiProgramming/Parts/<string:cat_name>', methods=['GET'])
 def parts_by_cat_name_handler(cat_name):
     if request.method == 'GET':
         return PartController().getPartByCatname(cat_name)
@@ -69,7 +69,7 @@ def parts_by_cat_name_handler(cat_name):
 """
 
 
-@app.route('/PartsApp/Parts/Filter/PriceLessThan/<string:part_price>', methods=['GET'])
+@app.route('/CoquiProgramming/Parts/Filter/PriceLessThan/<string:part_price>', methods=['GET'])
 def parts_by_price_less_than_equal_to(part_price):
     if request.method == 'GET':
         return PartController().getPartsByPriceLessThanOrEqualTo(part_price)
@@ -82,7 +82,7 @@ def parts_by_price_less_than_equal_to(part_price):
 """
 
 
-@app.route('/PartsApp/Parts/OrderedAsc', methods=['GET'])
+@app.route('/CoquiProgramming/Parts/OrderedAsc', methods=['GET'])
 def parts_by_name_ascending():
     if request.method == 'GET':
         return PartController().order_parts_by_name()
@@ -95,7 +95,7 @@ def parts_by_name_ascending():
 """
 
 
-@app.route('/PartsApp/Parts/OrderedDesc', methods=['GET'])
+@app.route('/CoquiProgramming/Parts/OrderedDesc', methods=['GET'])
 def parts_by_name_descending():
     if request.method == 'GET':
         return PartController().order_parts_by_name_desc()
@@ -108,7 +108,7 @@ def parts_by_name_descending():
 """
 
 
-@app.route('/PartsApp/Parts/OrderedAscByPrice', methods=['GET'])
+@app.route('/CoquiProgramming/Parts/OrderedAscByPrice', methods=['GET'])
 def parts_by_price_ascending():
     if request.method == 'GET':
         return PartController().order_parts_by_price()
@@ -121,7 +121,7 @@ def parts_by_price_ascending():
 """
 
 
-@app.route('/PartsApp/Parts/OrderedDescByPrice', methods=['GET'])
+@app.route('/CoquiProgramming/Parts/OrderedDescByPrice', methods=['GET'])
 def parts_by_price_descending():
     if request.method == 'GET':
         return PartController().order_parts_by_price_desc()
@@ -133,7 +133,7 @@ def parts_by_price_descending():
     Route to get all users
 """
 
-@app.route('/PartsApp/User', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/CoquiProgramming/User', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def user_handler():
     if request.method == 'GET':
         return UserController().getAllUser()
@@ -145,35 +145,35 @@ def user_handler():
         return UserController().deleteUserById(request.json)
     else:
         return jsonify("Method Not Supported"), 405
-@app.route('/PartsApp/User/<int:user_id>', methods=['GET'])
+@app.route('/CoquiProgramming/User/<int:user_id>', methods=['GET'])
 def getuserbyid_handler(user_id):
     if request.method =='GET':
         return UserController().getUserById(user_id)
     else:
         return jsonify("Method Not Supported"),405
 
-@app.route('/PartsApp/User/topPartBought/<int:user_id>', methods=['GET'])
+@app.route('/CoquiProgramming/User/topPartBought/<int:user_id>', methods=['GET'])
 def getTopPartBoughtByUser_handler(user_id):
         if request.method == 'GET':
             return UserController().getMostBoughtPartUser(user_id)
         else:
             return jsonify("Method Not Supported"), 405
 
-@app.route('/PartsApp/User/topCatBought/<int:user_id>', methods=['GET'])
+@app.route('/CoquiProgramming/User/topCatBought/<int:user_id>', methods=['GET'])
 def getTopCatBoughtByUser_handler(user_id):
         if request.method == 'GET':
             return UserController().getMostBoughtCategoryUser(user_id)
         else:
             return jsonify("Method Not Supported"), 405
 
-@app.route('/PartsApp/User/mostExpensivePart/<int:user_id>', methods=['GET'])
+@app.route('/CoquiProgramming/User/mostExpensivePart/<int:user_id>', methods=['GET'])
 def getMostExpensivePartUser_handler(user_id):
         if request.method == 'GET':
             return UserController().getMostExpensivePartUser(user_id)
         else:
             return jsonify("Method Not Supported"), 405
 
-@app.route('/PartsApp/User/CheapestPart/<int:user_id>', methods=['GET'])
+@app.route('/CoquiProgramming/User/CheapestPart/<int:user_id>', methods=['GET'])
 def getCheapestPartUser_handler(user_id):
         if request.method == 'GET':
             return UserController().getCheapestPartUser(user_id)
@@ -184,7 +184,7 @@ def getCheapestPartUser_handler(user_id):
 """
 
 
-@app.route('/PartsApp/Order', methods=['GET', 'PUT'])
+@app.route('/CoquiProgramming/Order', methods=['GET', 'PUT'])
 def order_handler():
     if request.method == 'GET':
         return OrderController().getAllOrders()
@@ -195,7 +195,7 @@ def order_handler():
 """
     ROUTE TO CREATE GET ORDER INFO
 """
-@app.route('/PartsApp/Order/<int:order_id>', methods=['GET'])
+@app.route('/CoquiProgramming/Order/<int:order_id>', methods=['GET'])
 def order_byid_handler(order_id):
     if request.method == 'GET':
         return OrderController().getOrderInfoById(order_id)
@@ -203,7 +203,7 @@ def order_byid_handler(order_id):
         return jsonify("Method Not Supported"), 405
 
 
-@app.route('/PartsApp/Order', methods=['DELETE'])
+@app.route('/CoquiProgramming/Order', methods=['DELETE'])
 def deleteorder_handler():
     if request.method == 'DELETE':
         return OrderController().deleteOrder(request.json)
@@ -211,7 +211,7 @@ def deleteorder_handler():
         return jsonify("Method Not Supported"), 405
 
 
-@app.route('/PartsApp/Order/getOrders/<int:user_id>', methods=['GET'])
+@app.route('/CoquiProgramming/Order/getOrders/<int:user_id>', methods=['GET'])
 def order_byuser_handler(user_id):
     if request.method == 'GET':
         return OrderController().getOrderByUser(user_id)
@@ -222,7 +222,7 @@ def order_byuser_handler(user_id):
     ROUTE TO CREATE NEW ORDER
 """
 
-@app.route('/PartsApp/newOrder/<int:user_id>', methods=['GET', 'PUT', 'POST'])
+@app.route('/CoquiProgramming/newOrder/<int:user_id>', methods=['GET', 'PUT', 'POST'])
 def createOrder_handler(user_id):
     if request.method == 'POST':
         return OrderController().createOrder(user_id)
@@ -235,7 +235,7 @@ def createOrder_handler(user_id):
 """
 
 
-@app.route('/PartsApp/Cart', methods=['POST', 'DELETE'])
+@app.route('/CoquiProgramming/Cart', methods=['POST', 'DELETE'])
 def cart_handler():
     if request.method == 'POST':
         return CartController().newPart(request.json)
@@ -251,7 +251,7 @@ def cart_handler():
 """
     ROUTE TO CLEAR CART
 """
-@app.route('/PartsApp/Cart/<int:user_id>/', methods=['DELETE'])
+@app.route('/CoquiProgramming/Cart/<int:user_id>/', methods=['DELETE'])
 def cartClearAllParts_handler(user_id):
     if request.method == 'DELETE':
         return CartController().clearAllPartsFromCart(user_id)
@@ -261,7 +261,7 @@ def cartClearAllParts_handler(user_id):
 """
     ROUTE TO VIEW USER CART
 """
-@app.route('/PartsApp/ViewCart/<int:user_id>/', methods=['GET'])
+@app.route('/CoquiProgramming/ViewCart/<int:user_id>/', methods=['GET'])
 def viewUserCart(user_id):
     if request.method == 'GET':
         return CartController().viewCart(user_id)
@@ -273,7 +273,7 @@ def viewUserCart(user_id):
     Route to wishlist.
 
 """
-@app.route('/PartsApp/WishList', methods=['POST', 'DELETE']) #checked works
+@app.route('/CoquiProgramming/WishList', methods=['POST', 'DELETE']) #checked works
 def wishlist_handler():
     if request.method == 'POST':
         return WishListController().addPartToWishList(request.json)
@@ -286,7 +286,7 @@ def wishlist_handler():
 """
     ROUTE TO CLEAR WISHLIST
 """
-@app.route('/PartsApp/WishList/Clear/<int:user_id>/', methods=['DELETE'])
+@app.route('/CoquiProgramming/WishList/Clear/<int:user_id>/', methods=['DELETE'])
 def wishlistClearAllParts_handler(user_id):
     if request.method == 'DELETE':
         return WishListController().clearAllPartsFromWishList(user_id)
@@ -296,7 +296,7 @@ def wishlistClearAllParts_handler(user_id):
 """
     ROUTE TO VIEW WISHLIST
 """
-@app.route('/PartsApp/WishList/View/<int:user_id>/', methods=['GET']) #checked works
+@app.route('/CoquiProgramming/WishList/View/<int:user_id>/', methods=['GET']) #checked works
 def viewUserWishList(user_id):
     if request.method == 'GET':
         return WishListController().viewWishList(user_id)
@@ -310,7 +310,7 @@ def viewUserWishList(user_id):
     MOST EXPENSIVE
 """
 
-@app.route('/PartsApp/GlobalRank/MostExpensive', methods=['GET'])
+@app.route('/CoquiProgramming/GlobalRank/MostExpensive', methods=['GET'])
 def getMostExpensive_handler():
     if request.method == 'GET':
         return GlobalController().getMostExpensive()
@@ -320,7 +320,7 @@ def getMostExpensive_handler():
 """
     CHEAPEST PART
 """
-@app.route('/PartsApp/GlobalRank/Cheapest', methods=['GET'])
+@app.route('/CoquiProgramming/GlobalRank/Cheapest', methods=['GET'])
 def getCheapest_handler():
     if request.method == 'GET':
         return GlobalController().getCheapest()
@@ -331,7 +331,7 @@ def getCheapest_handler():
         ROUTE TO MOST LIKED PARTS
     """
 
-@app.route('/PartsApp/GlobalRank/MostLiked', methods=['GET'])
+@app.route('/CoquiProgramming/GlobalRank/MostLiked', methods=['GET'])
 def getMostLiked_handler():
     if request.method == 'GET':
         return GlobalController().getMostLiked()
@@ -341,7 +341,7 @@ def getMostLiked_handler():
 """
     ROUTE TOP PRODUCT BOUGHT
 """
-@app.route('/PartsApp/GlobalRank/topProductBought', methods=['GET'])
+@app.route('/CoquiProgramming/GlobalRank/topProductBought', methods=['GET'])
 def getTopProductBought_handler():
         if request.method == 'GET':
             return GlobalController().getTopProductBought()
@@ -351,7 +351,7 @@ def getTopProductBought_handler():
 """
     ROUTE TOP CATEGORY BOUGHT
 """
-@app.route('/PartsApp/GlobalRank/topCatBought', methods=['GET'])
+@app.route('/CoquiProgramming/GlobalRank/topCatBought', methods=['GET'])
 def getTopCatBought_handler():
         if request.method == 'GET':
             return GlobalController().getTopCatBought()
