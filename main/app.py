@@ -133,7 +133,20 @@ def parts_by_price_descending():
 
 
 """
-    ROUTE TO VIEW ALL USERS REGISTERED IN THE DATABASE.
+    ROUTE TO VIEW ALL USERS REGISTERED IN THE DATABASE, UPDATE USER INFORMATION, CREATE NEW USER, OR DELETE USER.
+    
+    ...
+    Example (POST):
+        {
+            "Admin ID": 1,
+            "user_password": "userpassword",
+            "user_email": "useremail",
+            "full_name": "user's full name",
+            "balance": 1000 (can be any double precision number),
+            "user_rol": "false", (false if this user cannot have admin privileges, true otherwise)
+        }
+    ...
+    
 """
 
 
@@ -231,7 +244,7 @@ def order_handler():
 
 
 """
-    ROUTE TO CREATE GET ORDER INFO GIVEN THE ORDER ID.
+    ROUTE TO GET ORDER INFO GIVEN THE ORDER ID.
 """
 
 
@@ -270,7 +283,7 @@ def order_by_user_handler(user_id):
 
 
 """
-    ROUTE TO CREATE NEW ORDER
+    ROUTE TO CREATE NEW ORDER GIVEN THE USER ID.
 """
 
 
@@ -284,6 +297,15 @@ def create_order_handler(user_id):
 
 """
     ROUTE TO ADD PART TO CART.
+    
+    ...
+    Example (POST):
+        {
+            "user_id": <id>,
+            "part_id": <part id>, 
+            "quantity": <quantity to buy>
+        }
+    ...
 """
 
 
@@ -329,6 +351,15 @@ def view_user_cart(user_id):
 
 """
     ROUTE TO ADD PART TO WISHLIST.
+    
+    ...
+    Example (POST):
+        {
+            "user_id": <id>, 
+            "part_id": <part_id"
+        }
+    ...
+    
 """
 
 
@@ -436,4 +467,4 @@ def get_top_cat_bought_handler():
 
 
 if __name__ == '__main__':
-    app.run(debug=1)
+    app.run(debug=True)
