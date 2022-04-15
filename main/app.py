@@ -45,7 +45,7 @@ def parts_byid_handler(part_id):
     elif request.method == 'PUT':
         return PartController().updatePart(part_id, request.json)
     elif request.method == 'DELETE':
-        return PartController().deletePart(part_id)
+        return PartController().deletePart(part_id, request.json)
     else:
         return jsonify("Not Supported"), 405
 

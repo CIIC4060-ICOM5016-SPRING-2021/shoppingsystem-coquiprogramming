@@ -1,5 +1,6 @@
 from flask import jsonify
 from dao.parts import PartDAO
+from dao.user import UserDAO
 
 
 class PartController:
@@ -157,38 +158,61 @@ class PartController:
 
 
     def newPart(self, json):
+        aUser_id = json['Admin ID']
         part_name = json['part_name']
         part_price = json['part_price']
         cat_id = json['cat_id']
         quantity = json['quantity']
         part_info = json['part_info']
 
-        dao = PartDAO()
-        part_id = dao.newPart(part_name, part_price, cat_id, quantity, part_info)
 
-        json['part_id'] = part_id
-        return jsonify(json), 201
+        dao = PartDAO()
+        userdao = UserDAO()
+        admin = userdao.userAdmin(aUser_id)
+        if admin:
+            part_id = dao.newPart(part_name, part_price, cat_id, quantity, part_info)
+            json['part_id'] = part_id
+            return jsonify(json), 201
+        if not admin: return jsonify("NOT ADMIN")
 
     def updatePart(self, part_id, json):
-        part_name = json['Part Name']
-        part_price = json['Part Price']
-        cat_id = json['Category ID']
-        quantity = json['Quantity Available']
-        part_info = json['Product Info']
-
+        aUser_id = json['Admin ID']
+        part_name = json['part_name']
+        part_price = json['part_price']
+        cat_id = json['cat_id']
+        quantity = json['quantity']
+        part_info = json['part_info']
+        userdao = UserDAO()
         dao = PartDAO()
+
+        admin = userdao.userAdmin(aUser_id)
+
         result = dao.updatePart(part_id, part_name, part_price, cat_id, quantity, part_info)
-        if result:
-            return jsonify(json), 200
+        if admin:
+            result = dao.updatePart(part_id, part_name, part_price, cat_id, quantity, part_info)
+            if result:
+                return jsonify(json), 200
+        if not admin:
+            return jsonify("NOT ADMIN")
         else:
             return jsonify("NOT FOUND"), 404
 
 
-    def deletePart(self, part_id):
+    def deletePart(self, part_id, json):
+         aUser_id = json['Admin ID']
+
          dao = PartDAO()
-         result_tuple = dao.getPartById(part_id)
-         if not result_tuple:
-             return jsonify("PART NOT FOUND"),404
-         else: dao.deletePart(part_id)
-         return jsonify("Part Deleted"),200
+         userdao = UserDAO()
+         admin = userdao.userAdmin(aUser_id)
+
+         if admin:
+             result_tuple = dao.getPartById(part_id)
+             if result_tuple:
+                 dao.deletePart(part_id)
+                 return jsonify("Part Deleted"), 200
+             if not result_tuple:
+                 return jsonify("PART NOT FOUND"), 404
+         if not admin:
+            return jsonify("NOT ADMIN")
+
 
