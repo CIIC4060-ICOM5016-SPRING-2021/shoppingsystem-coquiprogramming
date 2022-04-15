@@ -21,17 +21,18 @@ class OrderDAO:
         for row in cursor:
             result.append(row)
         return result
+
     def getOrderTotal(self, order_id):
         query = "select total from orders where order_id  = %s"
         cursor = self.conn.cursor()
-        cursor.execute(query, ([order_id]),)
+        cursor.execute(query, ([order_id]), )
 
         orderTotal = cursor.fetchone()[0]
         return orderTotal
 
     def getOrdersByUserId(self, user_id):
         query = "select order_id, total from orders where user_id = %s"
-        cursor=self.conn.cursor()
+        cursor = self.conn.cursor()
         cursor.execute(query, ([user_id]))
         result = []
         for row in cursor:
@@ -50,63 +51,58 @@ class OrderDAO:
         return result
 
     def createOrder(self, user_id):
-            cursor = self.conn.cursor()
-            dao = CartDAO()
-            daopart = PartDAO()
-            daouser = UserDAO()
-            balance = daouser.getBalance(user_id)
-            total = dao.getCartTotal(user_id)
-            stock = dao.stockAvailable(user_id)
-            print("Dao Cart Balance", balance)
-            print("TOTAL EN CREATEORDER", total)
-            print("hay stock?", stock)
-            if(balance >= total) & stock:
-                balancequery = "update users set balance = (balance - %s) where user_id = %s"
-                cursor.execute(balancequery, (total, user_id,))
-                query = "insert into orders (user_id, total) values (%s,%s) returning order_id"
-                cursor.execute(query, (user_id,total),)
-                order_id = cursor.fetchone()[0]
-                print(order_id)
-                parts = dao.getCartParts(user_id)
-                result = []
-                for row in parts:
-                    print("daoordertest", row)
-                    part_id = row[0]
-                    part_quantity = row[1]
-                    price_bought = row[2]
-                    partname = row[3]
-                    print("test id", part_id, part_quantity, price_bought)
-                    self.addParts(user_id, order_id, part_id,part_quantity, price_bought, partname)
-                    daopart.removeQuantity(part_id,part_quantity)
-                    result.append(row)
-                self.conn.commit()
-                dao.clearAllPartsFromCart(user_id)
-                print("DAO Create Order result = ", result)
-                return result
+        cursor = self.conn.cursor()
+        dao = CartDAO()
+        daopart = PartDAO()
+        daouser = UserDAO()
+        balance = daouser.getBalance(user_id)
+        total = dao.getCartTotal(user_id)
+        stock = dao.stockAvailable(user_id)
+        print("Dao Cart Balance", balance)
+        print("TOTAL EN CREATEORDER", total)
+        print("hay stock?", stock)
+        if (balance >= total) & stock:
+            balancequery = "update users set balance = (balance - %s) where user_id = %s"
+            cursor.execute(balancequery, (total, user_id,))
+            query = "insert into orders (user_id, total) values (%s,%s) returning order_id"
+            cursor.execute(query, (user_id, total), )
+            order_id = cursor.fetchone()[0]
+            print(order_id)
+            parts = dao.getCartParts(user_id)
+            result = []
+            for row in parts:
+                print("daoordertest", row)
+                part_id = row[0]
+                part_quantity = row[1]
+                price_bought = row[2]
+                partname = row[3]
+                print("test id", part_id, part_quantity, price_bought)
+                self.addParts(user_id, order_id, part_id, part_quantity, price_bought, partname)
+                daopart.removeQuantity(part_id, part_quantity)
+                result.append(row)
+            self.conn.commit()
+            dao.clearAllPartsFromCart(user_id)
+            print("DAO Create Order result = ", result)
+            return result
 
-    def addParts(self, user_id,order_id, part_id, partquantity, price_bought,partname):
+    def addParts(self, user_id, order_id, part_id, partquantity, price_bought, partname):
 
         cursor = self.conn.cursor()
         query = "insert into orderhas(order_id, part_id, partquantity, price_bought,partname) values (%s, %s, %s, %s, %s)"
-        cursor.execute(query, (order_id, part_id, partquantity, price_bought,partname))
+        cursor.execute(query, (order_id, part_id, partquantity, price_bought, partname))
 
         self.conn.commit()
 
         print("Esta corriendo addparts")
         return part_id
+
     def deleteOrder(self, order_id):
         cursor = self.conn.cursor()
 
         prequery = "delete from orderhas where order_id = %s"
         cursor.execute(prequery, (order_id,))
-        if cursor.rowcount !=0:
+        if cursor.rowcount != 0:
             query = "delete from orders where order_id = %s"
             cursor.execute(query, (order_id,))
             self.conn.commit()
             return order_id
-
-
-
-
-
-
