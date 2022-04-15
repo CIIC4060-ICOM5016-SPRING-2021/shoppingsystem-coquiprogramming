@@ -239,19 +239,14 @@ def createOrder_handler(user_id):
 def cart_handler():
     if request.method == 'POST':
         return CartController().newPart(request.json)
+    if request.method == 'DELETE':
+        return CartController().deletePartFromCart(request.json)
     else:
         return jsonify("Method Not Supported"), 405
 
 """
     ROUTE TO REMOVE PART FROM CART
 """
-
-@app.route('/PartsApp/Cart/<int:user_id>/<int:part_id>', methods=['DELETE'])
-def cartDeletePart_handler(user_id, part_id):
-    if request.method == 'DELETE':
-        return CartController().deletePartFromCart(user_id, part_id)
-    else:
-        return jsonify("Method Not Supported"), 405
 
 """
     ROUTE TO CLEAR CART
@@ -282,18 +277,11 @@ def viewUserCart(user_id):
 def wishlist_handler():
     if request.method == 'POST':
         return WishListController().addPartToWishList(request.json)
+    elif request.method == 'DELETE':
+        return WishListController().deletePartFromWishList(request.json)
     else:
         return jsonify("Method Not Supported"), 405
 
-"""
-    ROUTE TO REMOVE PART FROM WISHLIST
-"""
-@app.route('/PartsApp/WishList/<int:user_id>/<int:part_id>', methods=['DELETE']) #checked works
-def wishlistDeletePart_handler(user_id, part_id):
-    if request.method == 'DELETE':
-        return WishListController().deletePartFromWishList(user_id, part_id)
-    else:
-        return jsonify("Method Not Supported"), 405
 
 """
     ROUTE TO CLEAR WISHLIST

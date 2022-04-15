@@ -1,4 +1,6 @@
 from flask import jsonify
+
+from dao.parts import PartDAO
 from dao.wishlist import WishListDAO
 
 
@@ -22,12 +24,19 @@ class WishListController:
         part_id = json['part_id']
 
         dao = WishListDAO()
-        part_id = dao.addPartToWishList(user_id, part_id)
+        partdao = PartDAO()
 
-        return jsonify(json), 201
+        partExist = partdao.getPartById(part_id)
+        if partExist:
+            part_id = dao.addPartToWishList(user_id, part_id)
+            return jsonify(json), 201
 
-    def deletePartFromWishList(self, user_id, part_id):
+        elif not partExist:
+            return jsonify("PART NOT FOUND"),404
 
+    def deletePartFromWishList(self, json):
+        user_id = json['user_id']
+        part_id = json['part_id']
         dao = WishListDAO()
         result_tuple = dao.deletePartFromWishList(user_id, part_id)
 

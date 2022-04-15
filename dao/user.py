@@ -55,7 +55,9 @@ class UserDAO:
         for row in order_id:
             order_id = row[0]
             self.deleteOrder(order_id)
-
+        wishlistquery = "delete from wishlist where user_id = %s"
+        cursor.execute(wishlistquery, (user_id,))
+        self.conn.commit()
         query = 'delete from "users" where user_id = %s;'
         cursor.execute(query, (user_id,))
         deleted_rows = cursor.rowcount

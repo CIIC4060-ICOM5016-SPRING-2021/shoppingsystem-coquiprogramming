@@ -1,5 +1,7 @@
 from flask import jsonify
 from dao.cart import CartDAO
+from dao.parts import PartDAO
+from dao.user import UserDAO
 
 
 class CartController:
@@ -29,22 +31,43 @@ class CartController:
         user_id = json['user_id']
         part_id = json['part_id']
         quantity = json['quantity']
+        userdao = UserDAO()
+        partdao = PartDAO()
+        userExist = userdao.getUserById(user_id)
+        partExist = partdao.getPartById(part_id)
 
         dao = CartDAO()
-        part_id = dao.addPartToCart(user_id, part_id, quantity)
 
-        return jsonify(json), 201
+        if userExist:
+            if partExist:
+                part_id = dao.addPartToCart(user_id, part_id, quantity)
+                return jsonify(json), 201
+            if not partExist:
+                return jsonify("PART NOT FOUND"),404
 
-    def deletePartFromCart(self, user_id, part_id):
+        if not userExist:
+            return jsonify("USER NOT FOUND"),404
+
+    def deletePartFromCart(self, json):
 
         dao = CartDAO()
+
+        user_id = json['user_id']
+        part_id = json['part_id']
+
+
+        userExist = dao.cartUserExist(user_id)
+        partExist = dao.cartPartExist(part_id)
+
         result_tuple = dao.deletePartFromCart(user_id, part_id)
-
-        if not result_tuple:
-            return jsonify("PART NOT FOUND"), 404
-        else:
-            dao.deletePartFromCart(user_id, part_id)
-        return jsonify("Part Deleted"), 200
+        if userExist:
+            if partExist:
+                result_tuple = dao.deletePartFromCart(user_id, part_id)
+                return jsonify("PART DELETED FROM CART")
+            if not partExist:
+                return jsonify("PART NOT FOUND")
+        if not userExist:
+            return jsonify("NOT USER FOUND")
 
     def clearAllPartsFromCart(self, user_id):
         dao = CartDAO()

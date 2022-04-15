@@ -82,3 +82,16 @@ class CartDAO:
                 return False
             else:
                 return True
+
+    def cartPartExist(self, part_id):
+        cursor = self.conn.cursor()
+        query = "select part_id from cart where part_id = %s"
+        cursor.execute(query, (part_id,))
+
+        return cursor.rowcount != 0
+
+    def cartUserExist(self, user_id):
+        cursor = self.conn.cursor()
+        query = "select user_id from cart where user_id = %s"
+        cursor.execute(query, (user_id,))
+        return cursor.rowcount != 0
