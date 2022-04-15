@@ -256,8 +256,13 @@ def delete_order_handler():
         return jsonify("Method Not Supported"), 405
 
 
+"""
+    ROUTE TO VIEW ALL ORDERS BY A SPECIFIED USER WITH USER_ID.
+"""
+
+
 @app.route('/CoquiProgramming/Order/getOrders/<int:user_id>', methods=['GET'])
-def order_byuser_handler(user_id):
+def order_by_user_handler(user_id):
     if request.method == 'GET':
         return OrderController().getOrderByUser(user_id)
     else:
@@ -270,7 +275,7 @@ def order_byuser_handler(user_id):
 
 
 @app.route('/CoquiProgramming/newOrder/<int:user_id>', methods=['GET', 'PUT', 'POST'])
-def createOrder_handler(user_id):
+def create_order_handler(user_id):
     if request.method == 'POST':
         return OrderController().createOrder(user_id)
     else:
@@ -278,7 +283,7 @@ def createOrder_handler(user_id):
 
 
 """
-    Route to cart.
+    ROUTE TO ADD PART TO CART.
 """
 
 
@@ -297,12 +302,12 @@ def cart_handler():
 """
 
 """
-    ROUTE TO CLEAR CART
+    ROUTE TO CLEAR USER CART.
 """
 
 
 @app.route('/CoquiProgramming/Cart/<int:user_id>/', methods=['DELETE'])
-def cartClearAllParts_handler(user_id):
+def cart_clear_all_parts_handler(user_id):
     if request.method == 'DELETE':
         return CartController().clearAllPartsFromCart(user_id)
     else:
@@ -310,12 +315,12 @@ def cartClearAllParts_handler(user_id):
 
 
 """
-    ROUTE TO VIEW USER CART
+    ROUTE TO VIEW USER CART.
 """
 
 
 @app.route('/CoquiProgramming/ViewCart/<int:user_id>/', methods=['GET'])
-def viewUserCart(user_id):
+def view_user_cart(user_id):
     if request.method == 'GET':
         return CartController().viewCart(user_id)
     else:
@@ -323,8 +328,7 @@ def viewUserCart(user_id):
 
 
 """
-    Route to wishlist.
-
+    ROUTE TO ADD PART TO WISHLIST.
 """
 
 
@@ -339,12 +343,12 @@ def wishlist_handler():
 
 
 """
-    ROUTE TO CLEAR WISHLIST
+    ROUTE TO CLEAR WISHLIST OF USER.
 """
 
 
 @app.route('/CoquiProgramming/WishList/Clear/<int:user_id>/', methods=['DELETE'])
-def wishlistClearAllParts_handler(user_id):
+def wishlist_clear_all_parts_handler(user_id):
     if request.method == 'DELETE':
         return WishListController().clearAllPartsFromWishList(user_id)
     else:
@@ -352,12 +356,12 @@ def wishlistClearAllParts_handler(user_id):
 
 
 """
-    ROUTE TO VIEW WISHLIST
+    ROUTE TO VIEW WISHLIST.
 """
 
 
 @app.route('/CoquiProgramming/WishList/View/<int:user_id>/', methods=['GET'])  # checked works
-def viewUserWishList(user_id):
+def view_user_wishlist(user_id):
     if request.method == 'GET':
         return WishListController().viewWishList(user_id)
     else:
@@ -365,14 +369,14 @@ def viewUserWishList(user_id):
 
 
 """
-    ROUTE GLOBAL RANKS
+    ROUTE GLOBAL RANKS.
     
-    MOST EXPENSIVE
+    MOST EXPENSIVE.
 """
 
 
 @app.route('/CoquiProgramming/GlobalRank/MostExpensive', methods=['GET'])
-def getMostExpensive_handler():
+def get_most_expensive_handler():
     if request.method == 'GET':
         return GlobalController().getMostExpensive()
     else:
@@ -385,19 +389,20 @@ def getMostExpensive_handler():
 
 
 @app.route('/CoquiProgramming/GlobalRank/Cheapest', methods=['GET'])
-def getCheapest_handler():
+def get_cheapest_handler():
     if request.method == 'GET':
         return GlobalController().getCheapest()
     else:
         return jsonify("Method Not Supported"), 405
 
-    """
-        ROUTE TO MOST LIKED PARTS
-    """
+
+"""
+    ROUTE TO MOST LIKED PARTS
+"""
 
 
 @app.route('/CoquiProgramming/GlobalRank/MostLiked', methods=['GET'])
-def getMostLiked_handler():
+def get_most_liked_handler():
     if request.method == 'GET':
         return GlobalController().getMostLiked()
     else:
@@ -410,7 +415,7 @@ def getMostLiked_handler():
 
 
 @app.route('/CoquiProgramming/GlobalRank/topProductBought', methods=['GET'])
-def getTopProductBought_handler():
+def get_top_product_bought_handler():
     if request.method == 'GET':
         return GlobalController().getTopProductBought()
     else:
@@ -423,7 +428,7 @@ def getTopProductBought_handler():
 
 
 @app.route('/CoquiProgramming/GlobalRank/topCatBought', methods=['GET'])
-def getTopCatBought_handler():
+def get_top_cat_bought_handler():
     if request.method == 'GET':
         return GlobalController().getTopCatBought()
     else:
