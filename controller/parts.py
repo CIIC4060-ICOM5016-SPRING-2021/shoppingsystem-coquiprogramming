@@ -56,12 +56,12 @@ class PartController:
 
     def partsbyOrder_dict(self, row):
         result = {}
-        result['Part ID'] = row[0]
-        result['Part Price'] = row[1]
-        result['Category ID'] = row[2]
-        result['Quantity Available'] = row[3]
-        result['Product Info'] = row[4]
-        result['Part Name'] = row[5]
+        result['part_id'] = row[0]
+        result['part_price'] = row[1]
+        result['cat_id'] = row[2]
+        result['quantity'] = row[3]
+        result['part_info'] = row[4]
+        result['part_name'] = row[5]
         return result
 
     def getAllParts(self):

@@ -71,13 +71,14 @@ class CartController:
 
     def clearAllPartsFromCart(self, user_id):
         dao = CartDAO()
-        result_tuple = dao.clearAllPartsFromCart(user_id)
+        userExist = dao.cartUserExist(user_id)
+        if userExist:
+            result_tuple = dao.clearAllPartsFromCart(user_id)
+            return jsonify("Cart Has Been Cleared"), 200
 
-        if not result_tuple:
-            return jsonify("PART NOT FOUND"), 404
-        else:
-            dao.clearAllPartsFromCart(user_id)
-        return jsonify("Cart Has Been Cleared"), 200
+        if not userExist:
+            return jsonify("USER DOES NOT HAVE A CART"), 404
+
 
     def viewCart(self, user_id):
         dao = CartDAO()

@@ -134,9 +134,8 @@ class UserDAO:
 
     def getCheapestPartUser(self,user_id):
         cursor = self.conn.cursor()
-        query = " select part_id, part_name, price_bought from (orderhas natural inner join parts) natural inner join orders" \
-                " where  user_id = %s " \
-                " and part_price = (select min(part_price) from (orderhas natural inner join parts) natural inner join orders) "
+        query = " select part_id, partname, price_bought from orderhas where price_bought = (select min(price_bought) " \
+                "from orderhas left join orders o on o.order_id = orderhas.order_id where user_id = %s)"
         cursor.execute(query, (user_id,))
         result = []
         for row in cursor:
