@@ -4,6 +4,7 @@ import psycopg2
 from dao.cart import CartDAO
 from dao.parts import PartDAO
 from dao.user import UserDAO
+from datetime import datetime
 
 
 class OrderDAO:
@@ -64,8 +65,9 @@ class OrderDAO:
         if (balance >= total) & stock:
             balancequery = "update users set balance = (balance - %s) where user_id = %s"
             cursor.execute(balancequery, (total, user_id,))
-            query = "insert into orders (user_id, total) values (%s,%s) returning order_id"
-            cursor.execute(query, (user_id, total), )
+            query = "insert into orders (user_id, total,date) values (%s,%s,%s) returning order_id"
+            date = datetime.now()
+            cursor.execute(query, (user_id, total,date), )
             order_id = cursor.fetchone()[0]
             print(order_id)
             parts = dao.getCartParts(user_id)
