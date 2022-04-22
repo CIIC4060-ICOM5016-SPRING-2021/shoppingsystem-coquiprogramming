@@ -10,7 +10,7 @@ class CartDAO:
         self.conn = psycopg2.connect(connection_url)
 
     def viewCart(self, user_id):
-        query = "select part_id, quantity from cart where user_id = '%s'"
+        query = "select cart.part_id, cart.quantity, part_name from cart left join parts p on p.part_id = cart.part_id where user_id = '%s'"
         cursor = self.conn.cursor()
         cursor.execute(query, (user_id,))
         result = []
