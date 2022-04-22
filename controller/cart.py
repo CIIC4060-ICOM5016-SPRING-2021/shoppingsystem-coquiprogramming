@@ -90,5 +90,6 @@ class CartController:
             dict = self.view_cart_dict(row)
             result.append(dict)
 
+
         return jsonify(cart=result)
 
