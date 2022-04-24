@@ -1,7 +1,7 @@
 from flask import jsonify
-from dao.cart import CartDAO
-from dao.parts import PartDAO
-from dao.user import UserDAO
+from backend.dao.cart import CartDAO
+from backend.dao.parts import PartDAO
+from backend.dao.user import UserDAO
 
 
 class CartController:

@@ -1,8 +1,6 @@
-import json
-
 from flask import jsonify
-from dao.orders import OrderDAO
-from dao.user import UserDAO
+from backend.dao.orders import OrderDAO
+from backend.dao.user import UserDAO
 
 
 class OrderController:

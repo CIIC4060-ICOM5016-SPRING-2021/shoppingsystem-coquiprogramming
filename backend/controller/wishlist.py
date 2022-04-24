@@ -1,7 +1,7 @@
 from flask import jsonify
 
-from dao.parts import PartDAO
-from dao.wishlist import WishListDAO
+from backend.dao.parts import PartDAO
+from backend.dao.wishlist import WishListDAO
 
 
 class WishListController:

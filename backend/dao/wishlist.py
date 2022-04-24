@@ -1,7 +1,6 @@
 import psycopg2
 
-from config.pg import pg_config
-from dao.parts import PartDAO
+from backend.config.pg import pg_config
 
 
 class WishListDAO:

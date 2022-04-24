@@ -1,5 +1,5 @@
 import psycopg2
-from config.pg import pg_config
+from backend.config.pg import pg_config
 
 
 class CartDAO:

@@ -1,9 +1,9 @@
-from config.pg import pg_config
+from backend.config.pg import pg_config
 import psycopg2
 
-from dao.cart import CartDAO
-from dao.parts import PartDAO
-from dao.user import UserDAO
+from backend.dao.cart import CartDAO
+from backend.dao.parts import PartDAO
+from backend.dao.user import UserDAO
 from datetime import datetime
 
 

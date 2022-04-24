@@ -1,5 +1,5 @@
 from flask import jsonify
-from dao.globalstatistics import GlobalDAO
+from backend.dao.globalstatistics import GlobalDAO
 
 class GlobalController:
     def mostexpensive_build_dict(self, row):

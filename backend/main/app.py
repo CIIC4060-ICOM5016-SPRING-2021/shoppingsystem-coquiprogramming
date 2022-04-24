@@ -1,12 +1,11 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS, cross_origin
 
-from controller.cart import CartController
-from controller.globalstatistics import GlobalController
-from controller.orders import OrderController
-from controller.parts import PartController
-from controller.user import UserController
-from controller.wishlist import WishListController
+from backend.controller.cart import CartController
+from backend.controller.globalstatistics import GlobalController
+from backend.controller.orders import OrderController
+from backend.controller.parts import PartController
+from backend.controller.user import UserController
+from backend.controller.wishlist import WishListController
 
 app = Flask(__name__)
 

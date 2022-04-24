@@ -1,6 +1,6 @@
 from flask import jsonify
-from dao.parts import PartDAO
-from dao.user import UserDAO
+from backend.dao.parts import PartDAO
+from backend.dao.user import UserDAO
 
 
 class PartController:
