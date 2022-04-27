@@ -9,7 +9,7 @@ function UserView(){
     const [notShow, setNotShow] = useState(false)
     const panes = [
         {
-            menuItem: 'Products', render: () => <Tab.Pane active={isAuth}><Container><Header>Anything you need to put here</Header><Divider/></Container><Products/></Tab.Pane>
+            menuItem: 'Products', render: () => <Tab.Pane active={isAuth}><Container><Header>Coqui Parts</Header><Divider/></Container><Products/></Tab.Pane>
         },
         {
             menuItem: 'WishList', render: () => <Tab.Pane active={isAuth}><Products/></Tab.Pane>

@@ -1,23 +1,30 @@
 import React, {Component, useState} from 'react';
 import {Button, Card, Container, Modal, Tab} from "semantic-ui-react";
+import axios from 'axios'
+
+
+
 
 function AllProducts(props) {
-    console.log(props)
-    props.info.forEach(value => console.log(value.pname));
+
+
+
+    //console.log(props)
+    props.info.forEach(value => console.log(value.part_name, value.part_price));
     return props.info.map(value => {return <Card>
         <Card.Content>
-            <Card.Header>{value.pname}</Card.Header>
-            <Card.Meta>{value.pprice}</Card.Meta>
+            <Card.Header>{value.part_name}</Card.Header>
+            <Card.Meta>{value.part_price}</Card.Meta>
             <Card.Description>
-                {value.pname}
+                {value.part_info}
             </Card.Description>
         </Card.Content>
         <Card.Content extra>
-            <div className='ui two buttons'>
-                <Button basic color='green'>
+            <div className=' two buttons'>
+                <Button basic color='red'>
                     Add to Wish List
                 </Button>
-                <Button basic color='green'>
+                <Button basic color='blue'>
                     Add to Cart
                 </Button>
             </div>
