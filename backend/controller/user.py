@@ -59,14 +59,14 @@ class UserController(object):
         return jsonify(User=user)
 
     def newUser(self, json: dict):
-        aUser_id = json['Admin ID']
+        #aUser_id = json['Admin ID']
         user_password = json['user_password']
         user_email = json['user_email']
         full_name = json['full_name']
         balance = json['balance']
-        user_rol = json['user_rol']
+        user_rol = False
         dao = UserDAO()
-        admin = dao.userAdmin(aUser_id)
+        admin = True
         if admin:
             result = dao.newUser(user_password, user_email, full_name, balance, user_rol)
             if result:
