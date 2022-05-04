@@ -1,5 +1,7 @@
 import React, {Component, useState} from 'react';
 import {Button, Divider, Form, Grid, Header, Modal, Segment, Tab} from 'semantic-ui-react';
+import SignUpPage from "./SignUpPage";
+import {Route} from "react-router-dom";
 
 
 
@@ -8,6 +10,9 @@ function HomePage() {
     console.log(open);
     const handleChange = (event, newValue) => {
         setOpen(true);
+    }
+    const registerChange = (event, newValue) => {
+        <Route exact path="/Register" element={<SignUpPage/>} />
     }
 
     return (<Segment><Header dividing textAlign="center" size="huge">Welcome to DB Demo</Header>
