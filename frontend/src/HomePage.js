@@ -1,7 +1,7 @@
 import React, {Component, useState} from 'react';
 import {Button, Divider, Form, Grid, Header, Modal, Segment, Tab} from 'semantic-ui-react';
 import SignUpPage from "./SignUpPage";
-import {Route} from "react-router-dom";
+import {Route, Link} from "react-router-dom";
 
 
 
@@ -53,7 +53,7 @@ function HomePage() {
                         </Form>
                     </Grid.Column>
                     <Grid.Column verticalAlign='middle'>
-                        <Button content='Sign up' icon='signup' size='big' onClick={handleChange}/>
+                        <Button content='Sign up' as={Link} to="/Register" icon='signup' size='big'/>
                     </Grid.Column>
                 </Grid>
 
