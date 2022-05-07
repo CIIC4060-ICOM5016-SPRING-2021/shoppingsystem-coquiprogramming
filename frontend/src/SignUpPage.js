@@ -1,5 +1,6 @@
 import React, {Component, useState} from 'react';
 import {Button, Divider, Form, Grid, Header, Modal, Segment, Tab} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 import axios from "axios";
 
 
@@ -66,7 +67,6 @@ function SignUpPage() {
                                 label='Password'
                                 placeholder='*******'
                                 type = 'password' onChange = {(e)=> {setUserPass(e.target.value)}}
-
                             />
 
                             <Form.Input
@@ -75,7 +75,6 @@ function SignUpPage() {
                                 label='Full Name'
                                 placeholder='Manuel Rodriguez'
                                 type = 'text' onChange = {(e)=> {setUserName(e.target.value)}}
-
                             />
 
                             <Form.Input
@@ -90,8 +89,8 @@ function SignUpPage() {
                         </Form>
                     </Grid.Column>
                     <Grid.Column verticalAlign='top'>
-
                         <Button content='Sign up' icon='signup' size='big' onClick={register}/>
+                        <Button content='Already a user?' as={Link} to="/Home" size='big'/>
                     </Grid.Column>
                 </Grid>
 
