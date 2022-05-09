@@ -465,5 +465,20 @@ def get_top_cat_bought_handler():
         return jsonify("Method Not Supported"), 405
 
 
+"""
+    NEW ROUTES FOR FRONT END
+"""
+@app.route('/CoquiProgramming/User/account', methods=['GET'])
+def get_acc_by_email_and_password():
+    args = request.json
+    if request.method == 'GET':
+        if args:
+            return UserController().get_acc_by_email_and_password(args)
+        else:
+            return jsonify("Args not found: email or password"), 405
+    else:
+        return jsonify("Method Not Allowed"), 405
+
+
 if __name__ == '__main__':
     app.run(debug=True)

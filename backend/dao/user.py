@@ -148,3 +148,10 @@ class UserDAO:
         balance = cursor.fetchone()[0]
         return balance
 
+    # new def for frontend
+    def get_acc_by_email_and_password(self, user_email , user_password):
+        cursor = self.conn.cursor()
+        query =" select user_email, user_password , user_id, user_rol from users where user_email = %s and user_password = %s;"
+        cursor.execute(query, (user_email,user_password))
+        result = cursor.fetchone()
+        return result

@@ -166,3 +166,19 @@ class UserController(object):
             result.append(res)
 
         return jsonify(User=result)
+
+    #new def for frontend
+    def get_acc_by_email_and_password(self,json):
+        user_email = json['user_email']
+        user_password = json['user_password']
+        method = UserDAO()
+        user_tuple = method.get_acc_by_email_and_password(user_email, user_password)
+        if not user_tuple:
+            return jsonify("Not Found"), 404
+        else:
+            return jsonify({
+                'user_email': user_tuple[0],
+                'user_password': user_tuple[1],
+                'user_id': user_tuple[2],
+                'user_rol': user_tuple[3]
+            }), 200
