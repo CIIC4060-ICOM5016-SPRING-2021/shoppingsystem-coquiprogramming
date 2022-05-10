@@ -9,8 +9,8 @@ import {Route, Link} from "react-router-dom";
 
 function HomePage() {
     const [open, setOpen] = useState(false);
-    const [email,setEmail] =useState("");
-    const [password,setPassword] = useState("");
+    const [userEmail,setEmail] =useState("");
+    const [userPwd,setPassword] = useState("");
     const [data,setData] = useState("");
     console.log(open);
     const handleChange = () => {
@@ -18,21 +18,32 @@ function HomePage() {
     }
 
     const handleLogin = () => {
-        navigate('/dashboard')
+        navigate('/UserView')
     }
     const navigate = useNavigate();
 
-    function check(){
-        axios.get("http://127.0.0.1:5000/CoquiProgramming/User/account", {'user_email':email , 'user_password':password}).then(res=>
-        {
-            setData(res.data);
+    const check = () => {
+        axios
+
+            .post("http://127.0.0.1:5000/CoquiProgramming/User/account",
+                JSON.stringify({user_email:userEmail ,user_password : userPwd}),{
+                headers:{ 'Content-Type' : 'application/json'},
+
+                },)
+            .then((res)=> {
+                setData(res.data)
+                console.log(res)
+
+                if(res.data.user_id) {
+                    handleLogin()
+                }
+        }).catch(e =>{
+            console.log(e)
         })
-        if(data === ""){
-            return true
-        }
+
         localStorage.removeItem("login-data")
         localStorage.setItem("login-data", JSON.stringify(data))
-        console.log(localStorage.getItem("login-data"))
+        //console.log(localStorage.getItem("login-data"))
         return false
     }
     // const registerChange = (event, newValue) => {
@@ -66,19 +77,20 @@ function HomePage() {
                                 iconPosition='left'
                                 label='Email'
                                 placeholder='Email'
-                                value={email}
-                                onChange={e => setEmail(e.target.value)}
+                                onChange= {(e) => {setEmail(e.target.value)}}
+
                             />
                             <Form.Input
                                 icon='lock'
                                 iconPosition='left'
                                 label='Password'
                                 type='password'
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
+                                onChange={(e) => {setPassword(e.target.value)}}
+
                             />
-                            <Button content='Login' primary onClick={check()? handleChange:handleLogin}/>
                         </Form>
+                            <Button content='Login' primary onClick={check}/>
+
                     </Grid.Column>
                     <Grid.Column verticalAlign='middle'>
                         <Button content='Sign up'  icon='signup' size='big' onClick={() => {navigate("/Register")}}/>
