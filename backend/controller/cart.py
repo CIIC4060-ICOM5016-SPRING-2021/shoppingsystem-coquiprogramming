@@ -19,6 +19,7 @@ class CartController:
         result['part_id'] = row[0]
         result['quantity'] = row[1]
         result['part_name'] = row[2]
+        result['part_price'] = row[3]
         return result
 
     def viewPart_cart_dict(self, row):

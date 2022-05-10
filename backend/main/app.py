@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request
+import flask_cors
+from flask_cors import CORS
 
 from backend.controller.cart import CartController
 from backend.controller.globalstatistics import GlobalController
@@ -8,6 +10,7 @@ from backend.controller.user import UserController
 from backend.controller.wishlist import WishListController
 
 app = Flask(__name__)
+CORS(app,origins =["*"])
 
 """
     ROUTE TO HOME PAGE.
