@@ -14,9 +14,9 @@ class WishListController:
 
     def view_wishlist_dict(self, row):
         result = {}
-        result['Part ID'] = row[0]
-        result['Part Name'] = row[1]
-        result['Part Price'] = row[2]
+        result['part_id'] = row[0]
+        result['part_name'] = row[1]
+        result['part_price'] = row[2]
         return result
 
     def addPartToWishList(self, json):
