@@ -33,12 +33,13 @@ function HomePage() {
             .then((res)=> {
                 setData(res.data)
                 console.log(res)
-
                 if(res.data.user_id) {
                     handleLogin()
                 }
+
         }).catch(e =>{
             console.log(e)
+            handleChange()
         })
 
         localStorage.removeItem("login-data")
@@ -51,7 +52,7 @@ function HomePage() {
     // }
 
     return (<Segment><Header dividing textAlign="center" size="huge">Welcome to CoquiProgramming's DB Demo</Header>
-            <Modal
+            {<Modal
                 centered={false}
                 open={open}
                 onClose={() => setOpen(false)}
@@ -66,7 +67,7 @@ function HomePage() {
                 <Modal.Actions>
                     <Button onClick={() => setOpen(false)}>OK</Button>
                 </Modal.Actions>
-            </Modal>
+            </Modal>}
             <Segment placeholder>
 
                 <Grid columns={2} relaxed='very' stackable>

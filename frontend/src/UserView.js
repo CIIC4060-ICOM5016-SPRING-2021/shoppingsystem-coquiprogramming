@@ -12,10 +12,10 @@ function UserView(){
             menuItem: 'Products', render: () => <Tab.Pane active={isAuth}><Container><Header>Coqui Parts</Header><Divider/></Container><Products/></Tab.Pane>
         },
         {
-            menuItem: 'WishList', render: () => <Tab.Pane active={isAuth}><Products/></Tab.Pane>
+            menuItem: 'WishList', render: () => <Tab.Pane active={isAuth}></Tab.Pane>
         },
         {
-            menuItem: 'Cart', render: () => <Tab.Pane active={isAuth}><Products/></Tab.Pane>
+            menuItem: 'Cart', render: () => <Tab.Pane active={isAuth}></Tab.Pane>
         },
         {
             menuItem: 'Profile', render: () => <Tab.Pane active={isAuth}>:)</Tab.Pane>
