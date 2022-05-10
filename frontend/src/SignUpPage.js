@@ -7,6 +7,7 @@ import axios from "axios";
 
 function SignUpPage() {
     const [open, setOpen] = useState(false);
+    const [err, setErr] = useState(false);
     const [userEmailReg, setUserEmail] = useState('')
     const [userPassReg, setUserPass] = useState('')
     const [userNameReg, setUserName] = useState('')
@@ -20,7 +21,13 @@ function SignUpPage() {
             balance : userBalReg
         }).then ((response) => {
             console.log(response);
+            if(response) handleChange()
+            else {
+                handleErr()
+            }
+
         })
+
 
     };
 
@@ -30,6 +37,9 @@ function SignUpPage() {
         setOpen(true);
 
     }
+    const handleErr = (event, newValue) => {
+        setErr(true);
+    }
 
     return (<Segment><Header dividing textAlign="center" size="huge">Register User</Header>
             <Modal
@@ -38,16 +48,35 @@ function SignUpPage() {
                 onClose={() => setOpen(false)}
                 onOpen={() => setOpen(true)}
             >
-                <Modal.Header>Needs changing!</Modal.Header>
+                <Modal.Header>Register Succesful</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        This is a modal but it serves to show how buttons and functions can be implemented.
+                        You will be redirected to the HomePage
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button onClick={() => setOpen(false)}>OK</Button>
+                    <Button content='OK' as={Link} to="/Home" size='big'/>
                 </Modal.Actions>
             </Modal>
+
+            <Modal
+                centered={false}
+                open={err}
+                onClose={() => setErr(false)}
+                onOpen={() => setErr(true)}
+            >
+                <Modal.Header>Email already exist, please try another</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        Page will Refresh
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button content='OK' as={Link} to="/Register" size='big'/>
+                </Modal.Actions>
+            </Modal>
+
+
             <Segment placeholder>
 
                 <Grid columns={1} relaxed='very' stackable>
@@ -58,7 +87,7 @@ function SignUpPage() {
                                 iconPosition='left'
                                 label='Email'
                                 placeholder='Email'
-                                type = 'text' onChange = {
+                                type = 'email' onChange = {
                                 (e)=> {setUserEmail(e.target.value)}}
                             />
                             <Form.Input
@@ -90,6 +119,9 @@ function SignUpPage() {
                     </Grid.Column>
                     <Grid.Column verticalAlign='top'>
                         <Button content='Sign up' icon='signup' size='big' onClick={register}/>
+                        <p>
+
+                        </p>
                         <Button content='Already a user?' as={Link} to="/Home" size='big'/>
                     </Grid.Column>
                 </Grid>
