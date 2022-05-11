@@ -18,7 +18,7 @@ function Cart() {
             const contains = await getinfo();
             if(contains){
                 setParts(contains)
-                console.log("esto es setparts " + parts)
+                console.log("esto es getparts " + parts)
             }
 
         };
