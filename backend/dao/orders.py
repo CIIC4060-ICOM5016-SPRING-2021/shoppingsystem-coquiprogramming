@@ -32,7 +32,7 @@ class OrderDAO:
         return orderTotal
 
     def getOrdersByUserId(self, user_id):
-        query = "select order_id, total from orders where user_id = %s"
+        query = "select order_id, total, date from orders where user_id = %s"
         cursor = self.conn.cursor()
         cursor.execute(query, ([user_id]))
         result = []

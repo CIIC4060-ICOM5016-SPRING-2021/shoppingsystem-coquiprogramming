@@ -13,11 +13,11 @@ class OrderController:
 
     def orderInfo_build_dict(self, row):
         result = {}
-        result['part ID'] = row[0]
-        result['Part Name'] = row[1]
-        result['Part Price'] = row[2]
-        result['Quantity'] = row[3]
-        result['Parts Total'] = row[4]
+        result['part_id'] = row[0]
+        result['part_name'] = row[1]
+        result['part_price'] = row[2]
+        result['quantity'] = row[3]
+        result['partstotal'] = row[4]
         return result
 
     def newOrder_build_dict(self, row):
@@ -33,8 +33,10 @@ class OrderController:
         return result
     def getOrdersByUser_build_dict(self, row):
         result = {}
-        result['Order ID'] = row[0]
-        result['Order Total'] = row[1]
+        result['order_id'] = row[0]
+        result['total'] = row[1]
+        result['date'] = row[2]
+
         return result
 
     def getAllOrders(self):
@@ -59,7 +61,7 @@ class OrderController:
         for row in result_tuple:
             result = self.orderInfo_build_dict(row)
             result_list.append(result)
-        return jsonify(result_list, " Order Total :", orderTotal)
+        return jsonify(order = result_list, total = orderTotal)
 
     def getOrderByUser(self, user_id):
         dao = OrderDAO()
