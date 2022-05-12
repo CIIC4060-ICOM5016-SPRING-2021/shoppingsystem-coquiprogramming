@@ -6,6 +6,38 @@ import Wishlist from "./Wishlist";
 import Cart from "./Cart";
 import Profile from "./Profile";
 import Orders from "./Orders";
+import axios from "axios";
+
+
+const clearCart = () => {
+    let e = localStorage.getItem("login-data");
+    let dat = JSON.parse(e)
+
+
+    axios
+        .delete(`http://127.0.0.1:5000/CoquiProgramming/Cart/${dat.user_id}/`,{
+
+        } ).then((res) =>{
+        console.log(res.data.json)
+    }).catch(e => {
+        console.log(e)
+    })
+}
+
+const createOrder = () => {
+    let e = localStorage.getItem("login-data");
+    let dat = JSON.parse(e)
+
+
+    axios
+        .post(`http://127.0.0.1:5000/CoquiProgramming/newOrder/${dat.user_id}`,{
+
+        } ).then((res) =>{
+        console.log(res.data.json)
+    }).catch(e => {
+        console.log(e)
+    })
+}
 
 
 function UserView(){
@@ -19,7 +51,7 @@ function UserView(){
             menuItem: 'WishList', render: () => <Tab.Pane active={isAuth}><Wishlist></Wishlist></Tab.Pane>
         },
         {
-            menuItem: 'Cart', render: () => <Tab.Pane active={isAuth}><Cart></Cart></Tab.Pane>
+            menuItem: 'Cart', render: () => <Tab.Pane active={isAuth}> <Button onClick ={clearCart}>CLEAR CART</Button> <Button onClick ={createOrder}>MAKE ORDER</Button> <Cart></Cart></Tab.Pane>
         },
         {
             menuItem: 'Profile', render: () => <Tab.Pane active={isAuth}><Profile></Profile></Tab.Pane>
