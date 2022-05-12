@@ -35,6 +35,8 @@ function HomePage() {
                 console.log(res)
                 if(res.data.user_id) {
                     handleLogin()
+                    localStorage.removeItem("login-data")
+                    localStorage.setItem("login-data", JSON.stringify(res.data))
                 }
 
         }).catch(e =>{
@@ -42,9 +44,8 @@ function HomePage() {
             handleChange()
         })
 
-        localStorage.removeItem("login-data")
-        localStorage.setItem("login-data", JSON.stringify(data))
-        //console.log(localStorage.getItem("login-data"))
+
+        console.log(localStorage.getItem("login-data"))
         return false
     }
     // const registerChange = (event, newValue) => {
