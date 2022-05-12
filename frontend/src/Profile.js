@@ -58,7 +58,7 @@ function Profile() {
         } else {
             let e = localStorage.getItem("login-data");
             let dat = JSON.parse(e)
-            data = {
+            let data = {
                 "user_id": dat.user_id,
                 "user_password":userPwd,
                 "user_email": userEmail,

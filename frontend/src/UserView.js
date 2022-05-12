@@ -5,6 +5,7 @@ import Products from "./Products";
 import Wishlist from "./Wishlist";
 import Cart from "./Cart";
 import Profile from "./Profile";
+import Orders from "./Orders";
 
 
 function UserView(){
@@ -25,6 +26,9 @@ function UserView(){
         },
         {
             menuItem: 'Dashboard', render: () => <Tab.Pane active={isAuth}><Dashboard/></Tab.Pane>
+        },
+        {
+            menuItem: 'Order History', render: () => <Tab.Pane active={isAuth}><Orders/></Tab.Pane>
         }
     ]
 
