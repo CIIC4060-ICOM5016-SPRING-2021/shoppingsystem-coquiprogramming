@@ -17,11 +17,11 @@ class PartController:
     def partbyCat_build_dict(self, row):
         result = {}
         # result['cat_id'] = row[0]
-        result['Part Name'] = row[0]
-        result['Part ID'] = row[1]
-        result['Part Price'] = row[2]
-        result['Product Info'] = row[3]
-        result['Quantity'] = row[4]
+        result['part_name'] = row[0]
+        result['part_id'] = row[1]
+        result['part_price'] = row[2]
+        result['part_info'] = row[3]
+        result['quantity'] = row[4]
         return result
 
     def part_by_price_build_dict(self, row):
@@ -121,7 +121,7 @@ class PartController:
             dict = self.partsbyOrder_dict(row)
             result.append(dict)
 
-        return jsonify(parts=result)
+        return jsonify(result)
 
     def order_parts_by_name_desc(self):
         dao = PartDAO()
@@ -132,7 +132,7 @@ class PartController:
             dict = self.partsbyOrder_dict(row)
             result.append(dict)
 
-        return jsonify(parts=result)
+        return jsonify(result)
 
     def order_parts_by_price(self):
         dao = PartDAO()
@@ -143,7 +143,7 @@ class PartController:
             dict = self.partsbyOrder_dict(row)
             result.append(dict)
 
-        return jsonify(parts=result)
+        return jsonify(result)
 
     def order_parts_by_price_desc(self):
         dao = PartDAO()
@@ -154,7 +154,7 @@ class PartController:
             dict = self.partsbyOrder_dict(row)
             result.append(dict)
 
-        return jsonify(parts=result)
+        return jsonify(result)
 
 
     def newPart(self, json):
