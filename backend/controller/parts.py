@@ -106,7 +106,7 @@ class PartController:
         for row in result_tuples:
             dict = self.partByPriceLessThanOrEqualTo_build_dict(row)
             result.append(dict)
-        return jsonify(part=result)
+        return jsonify(result)
 
     """
         Orders all parts alphabetically by name (ascending order).
