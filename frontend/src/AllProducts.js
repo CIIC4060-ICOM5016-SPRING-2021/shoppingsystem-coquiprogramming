@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {Button,Form, Card, Container, Modal, Tab} from "semantic-ui-react";
+import {Button, Form, Card, Container, Modal, Tab, Image} from "semantic-ui-react";
 import axios from 'axios'
 
 
@@ -47,8 +47,9 @@ function AllProducts(props) {
     props.info.forEach(value => console.log(value.part_name, value.part_price));
     return props.info.map(value => {return <Card>
         <Card.Content>
-            <Card.Header>{value.part_name}</Card.Header>
-            <Card.Meta>{value.part_price}</Card.Meta>
+            <Card.Header>{value.part_name} </Card.Header>
+            <Image src='https://i.kym-cdn.com/entries/icons/original/000/039/393/cover2.jpg' size='small' />
+            <Card.Meta>${value.part_price}</Card.Meta>
             <Card.Description>
                 {value.part_info}
             </Card.Description>
