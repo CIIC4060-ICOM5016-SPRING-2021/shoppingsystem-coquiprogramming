@@ -9,11 +9,18 @@ import Orders from "./Orders";
 import AdminParts from "./AdminParts"
 import AdminAddParts from "./AdminAddPart"
 import axios, {Axios} from "axios";
+import {Link} from "react-router-dom";
 
 
 
+let user = JSON.parse(localStorage.getItem('user_info'))
+const LogOut = () => {
+    console.log(localStorage)
+    localStorage.clear();
+    console.log(" despues de borrar    " + localStorage)
 
 
+}
 
 const clearCart = () => {
     let e = localStorage.getItem("login-data");
@@ -65,7 +72,7 @@ function UserView(){
             menuItem: 'Cart', render: () => <Tab.Pane active={isAuth}> <Button onClick ={clearCart}>CLEAR CART</Button> <Button onClick ={createOrder}>MAKE ORDER</Button> <Cart></Cart></Tab.Pane>
         },
         {
-            menuItem: 'Profile', render: () => <Tab.Pane active={isAuth}><Profile></Profile></Tab.Pane>
+            menuItem: 'Profile', render: () => <Tab.Pane active={isAuth}><Button color = 'black'as={Link} to="/Home" onClick = {LogOut}>Log Out</Button><Profile></Profile></Tab.Pane>
         },
         {
             menuItem: 'Dashboard', render: () => <Tab.Pane active={isAuth}><Dashboard/></Tab.Pane>
@@ -86,7 +93,7 @@ function UserView(){
             menuItem: 'Cart', render: () => <Tab.Pane active={isAuth}> <Button onClick ={clearCart}>CLEAR CART</Button> <Button onClick ={createOrder}>MAKE ORDER</Button> <Cart></Cart></Tab.Pane>
         },
         {
-            menuItem: 'Profile', render: () => <Tab.Pane active={isAuth}><Profile></Profile></Tab.Pane>
+            menuItem: 'Profile', render: () => <Tab.Pane active={isAuth}><Button color = 'black'as={Link} to="/Home" onClick = {LogOut}>Log Out</Button><Profile></Profile></Tab.Pane>
         },
         {
             menuItem: 'Dashboard', render: () => <Tab.Pane active={isAuth}><Dashboard/></Tab.Pane>
