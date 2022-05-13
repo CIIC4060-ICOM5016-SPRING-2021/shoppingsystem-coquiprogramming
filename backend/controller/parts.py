@@ -158,7 +158,7 @@ class PartController:
 
 
     def newPart(self, json):
-        aUser_id = json['Admin ID']
+        aUser_id = json['admin_id']
         part_name = json['part_name']
         part_price = json['part_price']
         cat_id = json['cat_id']
@@ -176,20 +176,17 @@ class PartController:
         if not admin: return jsonify("NOT ADMIN")
 
     def updatePart(self, part_id, json):
-        aUser_id = json['Admin ID']
-        part_name = json['part_name']
+        admin_id = json['admin_id']
         part_price = json['part_price']
-        cat_id = json['cat_id']
         quantity = json['quantity']
-        part_info = json['part_info']
         userdao = UserDAO()
         dao = PartDAO()
 
-        admin = userdao.userAdmin(aUser_id)
+        admin = userdao.userAdmin(admin_id)
 
-        result = dao.updatePart(part_id, part_name, part_price, cat_id, quantity, part_info)
+        result = dao.updatePart(part_id, part_price, quantity )
         if admin:
-            result = dao.updatePart(part_id, part_name, part_price, cat_id, quantity, part_info)
+            result = dao.updatePart(part_id,  part_price,  quantity)
             if result:
                 return jsonify(json), 200
         if not admin:
@@ -199,7 +196,7 @@ class PartController:
 
 
     def deletePart(self, part_id, json):
-         aUser_id = json['Admin ID']
+         aUser_id = json['admin_id']
 
          dao = PartDAO()
          userdao = UserDAO()

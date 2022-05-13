@@ -135,11 +135,11 @@ class PartDAO:
         Admin usage. Updates parts  attributes of the part specified by given part id.
     """
 
-    def updatePart(self, part_id, part_name, part_price, cat_id, quantity, part_info):
-        query = "update parts set part_name = %s, part_price = %s, cat_id = %s, quantity = %s, part_info = %s where " \
+    def updatePart(self, part_id,  part_price,  quantity):
+        query = "update parts set part_price = %s,  quantity = %s where " \
                 "part_id = %s; "
         cursor = self.conn.cursor()
-        cursor.execute(query, (part_name, part_price, cat_id, quantity, part_info, part_id))
+        cursor.execute(query, ( part_price,  quantity, part_id))
         rowcount = cursor.rowcount
         self.conn.commit()
         return rowcount != 0
