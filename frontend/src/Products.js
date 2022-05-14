@@ -80,41 +80,40 @@ function Products() {
     for(let i = 0; i < parts.length; i++) {
         random_info[i] = parts[i]
     }
-
-    return<text>  <Dropdown text = 'Category'>
-        <Dropdown.Menu>
-            <Dropdown.Item text = 'All'  value = 'All' onClick = {() => getAll('All') }/>
-        <Dropdown.Item text = 'Keyboards'  value = 'Keyboards' onClick = {() => getAll('Keyboards') }/>
-            <Dropdown.Item text = 'Processors' value = 'Processors' onClick = {() => getAll('Processors') }/>
-            <Dropdown.Item text = 'Memory' value = 'Memory'onClick = {() => getAll('Memory') }/>
-            <Dropdown.Item text = 'Motherboards' value = 'Motherboards'onClick = {() => getAll('Motherboards') }/>
-            <Dropdown.Item text = 'Computer Cases' value = 'Computer Cases' onClick = {() => getAll('Computer Cases') }/>
-            <Dropdown.Item text = 'Power Supplies' value = 'Power Supplies' onClick = {() => getAll('Power Supplies') }/>
-            <Dropdown.Item text = 'Monitors' value = 'Monitors'onClick = {() => getAll('Monitors') }/>
-            <Dropdown.Item text = 'Mouse' value = 'Mouse' onClick = {() => getAll('Mouse') }/>
-            <Dropdown.Item text = 'Storage' value = 'Storage'onClick = {() => getAll('Storage') }/>
-            <Dropdown.Item text = 'Video Graphic Devices' value = 'Video Graphic Devices' onClick = {() => getAll('Video Graphic Devices') }/>
-        </Dropdown.Menu>
-    </Dropdown>
+    return <text>
+        <div class="filters"><Dropdown text = 'Category'>
+            <Dropdown.Menu>
+                <Dropdown.Item text = 'All'  value = 'All' onClick = {() => getAll('All') }/>
+                <Dropdown.Item text = 'Keyboards'  value = 'Keyboards' onClick = {() => getAll('Keyboards') }/>
+                <Dropdown.Item text = 'Processors' value = 'Processors' onClick = {() => getAll('Processors') }/>
+                <Dropdown.Item text = 'Memory' value = 'Memory'onClick = {() => getAll('Memory') }/>
+                <Dropdown.Item text = 'Motherboards' value = 'Motherboards'onClick = {() => getAll('Motherboards') }/>
+                <Dropdown.Item text = 'Computer Cases' value = 'Computer Cases' onClick = {() => getAll('Computer Cases') }/>
+                <Dropdown.Item text = 'Power Supplies' value = 'Power Supplies' onClick = {() => getAll('Power Supplies') }/>
+                <Dropdown.Item text = 'Monitors' value = 'Monitors'onClick = {() => getAll('Monitors') }/>
+                <Dropdown.Item text = 'Mouse' value = 'Mouse' onClick = {() => getAll('Mouse') }/>
+                <Dropdown.Item text = 'Storage' value = 'Storage'onClick = {() => getAll('Storage') }/>
+                <Dropdown.Item text = 'Video Graphic Devices' value = 'Video Graphic Devices' onClick = {() => getAll('Video Graphic Devices') }/>
+            </Dropdown.Menu>
+        </Dropdown>
         <Dropdown text = 'Order By Name'>
             <Dropdown.Menu>
                 <Dropdown.Item text = 'Ascending' value = 'OrderedAsc' onClick = {() => getAll('OrderedAsc') }/>
                 <Dropdown.Item text = 'Descending' value = 'OrderedAsc' onClick = {() => getAll('OrderedDesc') }/>
             </Dropdown.Menu>
-
         </Dropdown>
 
-    <Dropdown text = 'Order By Price'>
-        <Dropdown.Menu>
-            <Dropdown.Item text = 'Ascending' value = 'OrderedAsc' onClick = {() => getAll('OrderedAscByPrice') }/>
-            <Dropdown.Item text = 'Descending' value = 'OrderedAsc' onClick = {() => getAll('OrderedDescByPrice') }/>
-        </Dropdown.Menu>
-
-    </Dropdown>
+        <Dropdown text = 'Order By Price'>
+            <Dropdown.Menu>
+                <Dropdown.Item text = 'Ascending' value = 'OrderedAsc' onClick = {() => getAll('OrderedAscByPrice') }/>
+                <Dropdown.Item text = 'Descending' value = 'OrderedAsc' onClick = {() => getAll('OrderedDescByPrice') }/>
+            </Dropdown.Menu>
+        </Dropdown></div>
 
         <Card.Group>
             <AllProducts info={random_info}/>
-        </Card.Group> </text>
+        </Card.Group>
+    </text>
 
 
 

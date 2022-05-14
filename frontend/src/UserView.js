@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {Button, Card, Container, Divider, Header, Modal, Tab} from "semantic-ui-react";
+import {Button, Card, Container, Divider, Header, Modal, Segment, Tab} from "semantic-ui-react";
 import Dashboard from "./Dashboard";
 import Products from "./Products";
 import Wishlist from "./Wishlist";
@@ -14,52 +14,88 @@ import {Link} from "react-router-dom";
 
 
 let user = JSON.parse(localStorage.getItem('user_info'))
-const LogOut = () => {
-    console.log(localStorage)
-    localStorage.clear();
-    console.log(" despues de borrar    " + localStorage)
+// const LogOut = () => {
+//     console.log(localStorage)
+//     localStorage.clear();
+//     console.log(" despues de borrar    " + localStorage)
+//
+//
+// }
+//
+// const clearCart = () => {
+//     let e = localStorage.getItem("login-data");
+//     let dat = JSON.parse(e)
+//
+//
+//     axios
+//         .delete(`http://127.0.0.1:5000/CoquiProgramming/Cart/${dat.user_id}/`,{
+//
+//         } ).then((res) =>{
+//         console.log(res.data.json)
+//     }).catch(e => {
+//         console.log(e)
+//     })
+// }
 
-
-}
-
-const clearCart = () => {
-    let e = localStorage.getItem("login-data");
-    let dat = JSON.parse(e)
-
-
-    axios
-        .delete(`http://127.0.0.1:5000/CoquiProgramming/Cart/${dat.user_id}/`,{
-
-        } ).then((res) =>{
-        console.log(res.data.json)
-    }).catch(e => {
-        console.log(e)
-    })
-}
-
-const createOrder = () => {
-    let e = localStorage.getItem("login-data");
-    let dat = JSON.parse(e)
-
-
-    axios
-        .post(`http://127.0.0.1:5000/CoquiProgramming/newOrder/${dat.user_id}`,{
-
-        } ).then((res) =>{
-        console.log(res.data.json)
-    }).catch(e => {
-        console.log(e)
-    })
-}
-
-
+// const createOrder = () => {
+//     let e = localStorage.getItem("login-data");
+//     let dat = JSON.parse(e)
+//
+//
+//     axios
+//         .post(`http://127.0.0.1:5000/CoquiProgramming/newOrder/${dat.user_id}`,{
+//         } ).then((res) =>{
+//         console.log(res.data.json)
+//         alert("Order has been placed!")
+//         handleChange()
+//     }).catch(e => {
+//         console.log(e)
+//     })
+// }
 
 function UserView(){
+
     let e = localStorage.getItem("login-data");
     let dat = JSON.parse(e)
     const [isAuth, setIsAuth] = useState(true)
     const [notShow, setNotShow] = useState(false)
+    const [open, setOpen] = useState(false)
 
+    const LogOut = () => {
+        console.log(localStorage)
+        localStorage.clear();
+        console.log(" despues de borrar    " + localStorage)
+    }
+
+    const clearCart = () => {
+        let e = localStorage.getItem("login-data");
+        let dat = JSON.parse(e)
+        axios
+            .delete(`http://127.0.0.1:5000/CoquiProgramming/Cart/${dat.user_id}/`,{
+            }).then((res) =>{
+            console.log(res.data.json)
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
+    const createOrder = () => {
+        let e = localStorage.getItem("login-data");
+        let dat = JSON.parse(e)
+
+        axios
+            .post(`http://127.0.0.1:5000/CoquiProgramming/newOrder/${dat.user_id}`,{
+            } ).then((res) =>{
+            console.log(res.data.json)
+            handleChange()
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
+    const handleChange = () => {
+        setOpen(true);
+    }
 
     const panes = [
         {
@@ -69,10 +105,11 @@ function UserView(){
             menuItem: 'WishList', render: () => <Tab.Pane active={isAuth}><Wishlist></Wishlist></Tab.Pane>
         },
         {
-            menuItem: 'Cart', render: () => <Tab.Pane active={isAuth}> <Button onClick ={clearCart}>CLEAR CART</Button> <Button onClick ={createOrder}>MAKE ORDER</Button> <Cart></Cart></Tab.Pane>
+            menuItem: 'Cart', render: () => <Tab.Pane active={isAuth}> <Button onClick ={clearCart}>CLEAR CART</Button>
+                <Button onClick={createOrder}>MAKE ORDER</Button><Cart></Cart></Tab.Pane>
         },
         {
-            menuItem: 'Profile', render: () => <Tab.Pane active={isAuth}><Button color = 'black'as={Link} to="/Home" onClick = {LogOut}>Log Out</Button><Profile></Profile></Tab.Pane>
+            menuItem: 'Profile', render: () => <Tab.Pane active={isAuth}><Button color = 'black' as={Link} to="/Home" onClick = {LogOut}>Log Out</Button><Profile></Profile></Tab.Pane>
         },
         {
             menuItem: 'Dashboard', render: () => <Tab.Pane active={isAuth}><Dashboard/></Tab.Pane>
@@ -108,10 +145,53 @@ function UserView(){
             menuItem: 'Add Part (ADMIN)', render:() => <Tab.Pane active={isAuth}><Header>Admin Menu</Header><AdminAddParts/></Tab.Pane>
         }
     ]
-    if(dat.user_rol == true){
-    return <Tab panes={admin}/>
+    const customSegment = {
+        backgroundColor: "DodgerBlue",
+        padding: "50px"
     }
-    else return <Tab panes={panes}/>
+    if(dat.user_rol == true){
+        return <Segment style={customSegment}>
+            <Tab panes={admin}/>
+            {<Modal
+                centered={false}
+                open={open}
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+            >
+                <Modal.Header>Your order has placed successfully!</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        Your ORDER ID is ...
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button onClick={() => setOpen(false)}>OK</Button>
+                </Modal.Actions>
+            </Modal>}
+        </Segment>
+    }
+    else
+        return <div style={customSegment}><Segment>
+            <Tab panes={panes}/>
+            {<Modal
+                centered={false}
+                open={open}
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+            >
+                <Modal.Header>Your order has been placed successfully!</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        Your ORDER ID is ...
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button onClick={() => setOpen(false)}>Continue shopping</Button>
+                </Modal.Actions>
+            </Modal>}
+        </Segment></div>
+
+
 
 }
 export default UserView;

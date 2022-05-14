@@ -36,7 +36,6 @@ function Cart() {
         let e = localStorage.getItem("login-data");
         let dat = JSON.parse(e)
         axios.get(`http://127.0.0.1:5000/CoquiProgramming/ViewCart/${dat.user_id}`, {
-
         })
             .then(res => {
                 console.log(res.data)

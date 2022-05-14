@@ -1,9 +1,10 @@
 import React, {Component, useState} from 'react';
 import axios from "axios"
-import{ useNavigate} from "react-router-dom";
+import{useNavigate} from "react-router-dom";
 import {Button, Divider, Form, Grid, Header, Modal, Segment, Tab} from 'semantic-ui-react';
 import SignUpPage from "./SignUpPage";
 import {Route, Link} from "react-router-dom";
+import {render} from "react-dom";
 
 
 
@@ -28,7 +29,6 @@ function HomePage() {
             .post("http://127.0.0.1:5000/CoquiProgramming/User/account",
                 JSON.stringify({user_email:userEmail ,user_password : userPwd}),{
                 headers:{ 'Content-Type' : 'application/json'},
-
                 },)
             .then((res)=> {
                 setData(res.data)
@@ -51,8 +51,17 @@ function HomePage() {
     // const registerChange = (event, newValue) => {
     //     <Route exact path="/Register" element={<SignUpPage/>} />
     // }
-
-    return (<Segment><Header dividing textAlign="center" size="huge">Welcome to CoquiProgramming's DB Demo</Header>
+    const homeDiv = {
+        color: "white",
+        backgroundColor: "DodgerBlue",
+        padding: "20px",
+        fontFamily: "Helvetica"
+    }
+    const homeHeader = {
+        color: "black",
+        fontFamily: "Gill Sans"
+    }
+    return (<div style={homeDiv}><Segment><Header style={homeHeader} dividing textAlign="center" size="huge">Coqui PC Shop</Header>
             {<Modal
                 centered={false}
                 open={open}
@@ -62,7 +71,7 @@ function HomePage() {
                 <Modal.Header>Invalid Email Or Password</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        Either the Email Or Password is invalid, please try again.
+                        Wrong email or password, please try again.
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
@@ -70,7 +79,6 @@ function HomePage() {
                 </Modal.Actions>
             </Modal>}
             <Segment placeholder>
-
                 <Grid columns={2} relaxed='very' stackable>
                     <Grid.Column>
                         <Form>
@@ -80,28 +88,25 @@ function HomePage() {
                                 label='Email'
                                 placeholder='Email'
                                 onChange= {(e) => {setEmail(e.target.value)}}
-
                             />
                             <Form.Input
                                 icon='lock'
                                 iconPosition='left'
                                 label='Password'
+                                placeholder="**********"
                                 type='password'
                                 onChange={(e) => {setPassword(e.target.value)}}
-
                             />
                         </Form>
-                            <Button content='Login' primary onClick={check}/>
-
+                        <Button content='Login' primary onClick={check}/>
                     </Grid.Column>
                     <Grid.Column verticalAlign='middle'>
                         <Button content='Sign up'  icon='signup' size='big' onClick={() => {navigate("/Register")}}/>
                     </Grid.Column>
                 </Grid>
-
                 <Divider vertical>Or</Divider>
             </Segment>
-        </Segment>
+        </Segment></div>
     )
 }
 
