@@ -1,7 +1,7 @@
 import React, {Component, useState} from 'react';
 import axios from "axios"
 import{useNavigate} from "react-router-dom";
-import {Button, Divider, Form, Grid, Header, Modal, Segment, Tab} from 'semantic-ui-react';
+import {Button, Divider, Form, Grid, Header, Image, Message, Modal, Segment, Tab} from 'semantic-ui-react';
 import SignUpPage from "./SignUpPage";
 import {Route, Link} from "react-router-dom";
 import {render} from "react-dom";
@@ -25,10 +25,9 @@ function HomePage() {
 
     const check = () => {
         axios
-
             .post("http://127.0.0.1:5000/CoquiProgramming/User/account",
                 JSON.stringify({user_email:userEmail ,user_password : userPwd}),{
-                headers:{ 'Content-Type' : 'application/json'},
+                    headers:{ 'Content-Type' : 'application/json'},
                 },)
             .then((res)=> {
                 setData(res.data)
@@ -38,8 +37,7 @@ function HomePage() {
                     localStorage.removeItem("login-data")
                     localStorage.setItem("login-data", JSON.stringify(res.data))
                 }
-
-        }).catch(e =>{
+            }).catch(e =>{
             console.log(e)
             handleChange()
         })
@@ -48,67 +46,57 @@ function HomePage() {
         console.log(localStorage.getItem("login-data"))
         return false
     }
-    // const registerChange = (event, newValue) => {
-    //     <Route exact path="/Register" element={<SignUpPage/>} />
-    // }
-    const homeDiv = {
-        color: "white",
-        backgroundColor: "DodgerBlue",
-        padding: "20px",
-        fontFamily: "Helvetica"
-    }
-    const homeHeader = {
-        color: "black",
-        fontFamily: "Gill Sans"
-    }
-    return (<div style={homeDiv}><Segment><Header style={homeHeader} dividing textAlign="center" size="huge">Coqui PC Shop</Header>
-            {<Modal
-                centered={false}
-                open={open}
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-            >
-                <Modal.Header>Invalid Email Or Password</Modal.Header>
-                <Modal.Content>
-                    <Modal.Description>
-                        Wrong email or password, please try again.
-                    </Modal.Description>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button onClick={() => setOpen(false)}>OK</Button>
-                </Modal.Actions>
-            </Modal>}
-            <Segment placeholder>
-                <Grid columns={2} relaxed='very' stackable>
-                    <Grid.Column>
-                        <Form>
-                            <Form.Input
-                                icon='user'
-                                iconPosition='left'
-                                label='Email'
-                                placeholder='Email'
-                                onChange= {(e) => {setEmail(e.target.value)}}
-                            />
-                            <Form.Input
-                                icon='lock'
-                                iconPosition='left'
-                                label='Password'
-                                placeholder="**********"
-                                type='password'
-                                onChange={(e) => {setPassword(e.target.value)}}
-                            />
-                        </Form>
-                        <Button content='Login' primary onClick={check}/>
-                    </Grid.Column>
-                    <Grid.Column verticalAlign='middle'>
-                        <Button content='Sign up'  icon='signup' size='big' onClick={() => {navigate("/Register")}}/>
-                    </Grid.Column>
-                </Grid>
-                <Divider vertical>Or</Divider>
-            </Segment>
-        </Segment></div>
-    )
+    return <Grid textAlign='center' style={{ height: '100vh'}} verticalAlign={'middle'}>
+        <Grid.Column style={{ maxWidth: 500}}>
+            <Header as='h2' color='teal' textAlign='center'>
+                Log-in to your account
+            </Header>
+            <Form size='large'>
+                <Segment stacked>
+                    {<Modal
+                        centered={false}
+                        open={open}
+                        onClose={() => setOpen(false)}
+                        onOpen={() => setOpen(true)}
+                    >
+                        <Modal.Header>Invalid Email Or Password</Modal.Header>
+                        <Modal.Content>
+                            <Modal.Description>
+                                Wrong email or password, please try again.
+                            </Modal.Description>
+                        </Modal.Content>
+                        <Modal.Actions>
+                            <Button onClick={() => setOpen(false)}>OK</Button>
+                        </Modal.Actions>
+                    </Modal>}
+                    <Form>
+                        <Form.Input
+                            fluid
+                            icon='user'
+                            iconPosition='left'
+                            label='E-mail'
+                            placeholder='E-mail'
+                            onChange= {(e) => {setEmail(e.target.value)}}
+                        />
+                        <Form.Input
+                            icon='lock'
+                            iconPosition='left'
+                            label='Password'
+                            placeholder="Password"
+                            type='password'
+                            onChange={(e) => {setPassword(e.target.value)}}
+                        />
+                    </Form>
+                    <Button color='teal' fluid  size='large' primary onClick={check}>Login</Button>
+                    <Message>
+                        New user? <a href='/Register'>Sign Up</a>
+                    </Message>
+                </Segment>
+            </Form>
+        </Grid.Column>
+    </Grid>
 }
 
 
 export default HomePage;
+

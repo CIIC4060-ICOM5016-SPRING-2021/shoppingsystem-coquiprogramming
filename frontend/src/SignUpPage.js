@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {Button, Divider, Form, Grid, Header, Modal, Segment, Tab} from 'semantic-ui-react';
+import {Button, Divider, Form, Grid, Header, Message, Modal, Segment, Tab} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import axios from "axios";
 
@@ -41,96 +41,73 @@ function SignUpPage() {
         setErr(true);
     }
 
-    return (<Segment><Header dividing textAlign="center" size="huge">Register User</Header>
-            <Modal
-                centered={false}
-                open={open}
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-            >
-                <Modal.Header>Register Succesful</Modal.Header>
-                <Modal.Content>
-                    <Modal.Description>
-                        You will be redirected to the HomePage
-                    </Modal.Description>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button content='OK' as={Link} to="/Home" size='big'/>
-                </Modal.Actions>
-            </Modal>
+    return <Grid textAlign='center' style={{height: '100vh'}} verticalAlign={'middle'}>
+        <Grid.Column style={{ maxWidth: 500}}>
+            <Header as='h2' color='teal' textAlign='center'>
+                Register your account
+            </Header>
+            <Form size='large'>
+                <Segment stacked>
+                    {<Modal
+                        centered={false}
+                        open={err}
+                        onClose={() => setErr(false)}
+                        onOpen={() => setErr(true)}
+                    >
+                        <Modal.Header>Email already exist, please try another</Modal.Header>
+                        <Modal.Content>
+                            <Modal.Description>
+                                Page will Refresh
+                            </Modal.Description>
+                        </Modal.Content>
+                        <Modal.Actions>
+                            <Button content='OK' as={Link} to="/Register" size='big'/>
+                        </Modal.Actions>
+                    </Modal>}
+                    <Form>
+                        <Form.Input
+                            icon='mail'
+                            iconPosition='left'
+                            label='E-mail'
+                            placeholder='Email'
+                            type = 'email' onChange = {
+                            (e)=> {setUserEmail(e.target.value)}}
+                        />
+                        <Form.Input
+                            icon='key'
+                            iconPosition='left'
+                            label='Password'
+                            placeholder='Password'
+                            type = 'password' onChange = {(e)=> {setUserPass(e.target.value)}}
+                        />
 
-            <Modal
-                centered={false}
-                open={err}
-                onClose={() => setErr(false)}
-                onOpen={() => setErr(true)}
-            >
-                <Modal.Header>Email already exist, please try another</Modal.Header>
-                <Modal.Content>
-                    <Modal.Description>
-                        Page will Refresh
-                    </Modal.Description>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button content='OK' as={Link} to="/Register" size='big'/>
-                </Modal.Actions>
-            </Modal>
+                        <Form.Input
+                            icon='user'
+                            iconPosition='left'
+                            label='Full Name'
+                            placeholder='Manuel Rodriguez'
+                            type = 'text' onChange = {(e)=> {setUserName(e.target.value)}}
+                        />
 
-
-            <Segment placeholder>
-
-                <Grid columns={1} relaxed='very' stackable>
-                    <Grid.Column>
-                        <Form>
-                            <Form.Input
-                                icon='mail'
-                                iconPosition='left'
-                                label='Email'
-                                placeholder='Email'
-                                type = 'email' onChange = {
-                                (e)=> {setUserEmail(e.target.value)}}
-                            />
-                            <Form.Input
-                                icon='key'
-                                iconPosition='left'
-                                label='Password'
-                                placeholder='*******'
-                                type = 'password' onChange = {(e)=> {setUserPass(e.target.value)}}
-                            />
-
-                            <Form.Input
-                                icon='user'
-                                iconPosition='left'
-                                label='Full Name'
-                                placeholder='Manuel Rodriguez'
-                                type = 'text' onChange = {(e)=> {setUserName(e.target.value)}}
-                            />
-
-                            <Form.Input
-                                icon='money'
-                                iconPosition='left'
-                                label='Balance'
-                                placeholder='$0.00'
-                                type = 'int' onChange = {
-                                (e)=> {setUserBal(e.target.value)}}
-                            />
-
-                        </Form>
-                    </Grid.Column>
-                    <Grid.Column verticalAlign='top'>
-                        <Button content='Sign up' icon='signup' size='big' onClick={register}/>
-                        <p>
-
-                        </p>
-                        <Button content='Already a user?' as={Link} to="/Home" size='big'/>
-                    </Grid.Column>
-                </Grid>
-
-
-            </Segment>
-        </Segment>
-    )
+                        <Form.Input
+                            icon='money'
+                            iconPosition='left'
+                            label='Balance'
+                            placeholder='$0.00'
+                            type = 'int' onChange = {
+                            (e)=> {setUserBal(e.target.value)}}
+                        />
+                    </Form>
+                    <Button color='teal' fluid  size='large' primary onClick={register}>Sign Up</Button>
+                    <Message>
+                        Already a user? <a href='/Home'>Login</a>
+                    </Message>
+                </Segment>
+            </Form>
+        </Grid.Column>
+    </Grid>
 }
 
 
 export default SignUpPage;
+
