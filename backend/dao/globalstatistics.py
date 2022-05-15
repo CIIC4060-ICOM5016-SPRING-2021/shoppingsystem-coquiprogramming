@@ -28,7 +28,7 @@ class GlobalDAO:
 
     def mostLiked(self):
         query = "select wishlist.part_id,p.part_name, count(wishlist.part_id)from wishlist " \
-                "left join parts p on p.part_id = wishlist.part_id group by wishlist.part_id, p.part_name order by count desc limit 1"
+                "left join parts p on p.part_id = wishlist.part_id group by wishlist.part_id, p.part_name order by count desc limit 10"
         cursor = self.conn.cursor()
         cursor.execute(query)
         result = []
@@ -49,7 +49,7 @@ class GlobalDAO:
     def topCatBought(self):
         query = "select c.cat_id, c. cat_name, sum(partquantity) as bought from orderhas left join" \
                 " parts p on p.part_id = orderhas.part_id left join categories c on c.cat_id = p.cat_id " \
-                "group by c.cat_name, c.cat_id order by bought desc limit 10"
+                "group by c.cat_name, c.cat_id order by bought desc limit 5"
 
         cursor = self.conn.cursor()
         cursor.execute(query)

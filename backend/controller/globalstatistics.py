@@ -17,15 +17,15 @@ class GlobalController:
 
     def topProductBought_build_dict(self, row):
         result = {}
-        result['Part Name'] = row[0]
-        result['Part ID'] = row[1]
-        result['Sold'] = row[2]
+        result['part_name'] = row[0]
+        result['part_id'] = row[1]
+        result['sold'] = row[2]
         return result
     def topCatBought_build_dict(self, row):
         result = {}
-        result['Cat ID'] = row[0]
-        result['Category'] = row[1]
-        result['Sold'] = row[2]
+        result['cat_id'] = row[0]
+        result['category'] = row[1]
+        result['sold'] = row[2]
         return result
 
 
@@ -39,7 +39,7 @@ class GlobalController:
             dict = self.mostexpensive_build_dict(row)
             result.append(dict)
 
-        return jsonify(product=result)
+        return jsonify(result)
 
     def getCheapest(self):
         dao = GlobalDAO()
@@ -48,7 +48,7 @@ class GlobalController:
         for row in result_tuples:
             dict = self.mostexpensive_build_dict(row)
             result.append(dict)
-        return jsonify(product = result)
+        return jsonify(result)
 
     def getMostLiked(self):
         dao = GlobalDAO()
@@ -57,7 +57,7 @@ class GlobalController:
         for row in result_tuples:
             dict = self.mostLiked_build_dict(row)
             result.append(dict)
-        return jsonify(Liked = result)
+        return jsonify(result)
 
     def getTopProductBought(self):
         dao = GlobalDAO()
@@ -66,7 +66,7 @@ class GlobalController:
         for row in result_tuples:
             dict = self.topProductBought_build_dict(row)
             result.append(dict)
-        return jsonify(Top10=result)
+        return jsonify(result)
 
     def getTopCatBought(self):
         dao = GlobalDAO()
@@ -75,6 +75,6 @@ class GlobalController:
         for row in result_tuples:
             dict = self.topCatBought_build_dict(row)
             result.append(dict)
-        return jsonify(Top=result)
+        return jsonify(result)
 
 
