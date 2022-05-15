@@ -105,8 +105,7 @@ function UserView(){
             menuItem: 'WishList', render: () => <Tab.Pane active={isAuth}><Wishlist></Wishlist></Tab.Pane>
         },
         {
-            menuItem: 'Cart', render: () => <Tab.Pane active={isAuth}> <Button onClick ={clearCart}>CLEAR CART</Button>
-                <Button onClick={createOrder}>MAKE ORDER</Button><Cart></Cart></Tab.Pane>
+            menuItem: 'Cart', render: () => <Tab.Pane active={isAuth}> <Button onClick ={clearCart}>CLEAR CART</Button><Button onClick={createOrder}>MAKE ORDER</Button><Cart></Cart></Tab.Pane>
         },
         {
             menuItem: 'Profile', render: () => <Tab.Pane active={isAuth}><Button color = 'black' as={Link} to="/Home" onClick = {LogOut}>Log Out</Button><Profile></Profile></Tab.Pane>

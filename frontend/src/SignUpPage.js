@@ -18,8 +18,8 @@ function SignUpPage() {
             user_email : userEmailReg,
             user_password : userPassReg,
             full_name : userNameReg,
-            balance : userBalReg
-        }).then ((response) => {
+            balance : userBalReg},
+        ).then ((response) => {
             console.log(response);
             if(response) handleChange()
             else {
@@ -35,7 +35,9 @@ function SignUpPage() {
     console.log(open);
     const handleChange = (event, newValue) => {
         setOpen(true);
-
+    }
+    const handleSignup = (event, newValue) => {
+        setOpen(true);
     }
     const handleErr = (event, newValue) => {
         setErr(true);
@@ -98,7 +100,7 @@ function SignUpPage() {
                             (e)=> {setUserBal(e.target.value)}}
                         />
                     </Form>
-                    <Button color='teal' fluid  size='large' primary onClick={register}>Sign Up</Button>
+                    <Button color='teal' fluid  size='large' primary onClick={register} as={Link} to='/Home'>Sign Up</Button>
                     <Message>
                         Already a user? <a href='/Home'>Login</a>
                     </Message>
