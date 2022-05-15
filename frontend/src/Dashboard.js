@@ -44,7 +44,7 @@ function Dashboard(){
     const getTopCatBought = async () => {
         axios.get('http://127.0.0.1:5000/CoquiProgramming/GlobalRank/topCatBought').then((data) => {
             if(data){
-                console.log(data.data)
+                //console.log(data.data)
                 setBoughtCategories((data));
             }
         });
@@ -53,7 +53,7 @@ function Dashboard(){
     const getTopProductBought = async () => {
         axios.get('http://127.0.0.1:5000/CoquiProgramming/GlobalRank/topProductBought').then((data) => {
             if(data){
-                console.log(data.data)
+                //console.log(data.data)
                 setBoughtProduct((data));
             }
         });
@@ -62,7 +62,7 @@ function Dashboard(){
     const getCheapest = async () => {
         axios.get('http://127.0.0.1:5000/CoquiProgramming/GlobalRank/Cheapest').then((data) => {
             if(data){
-                console.log(data.data)
+                //log(data.data)
                 setCheapest((data));
             }
         });
@@ -71,7 +71,7 @@ function Dashboard(){
 
     const getExpensive = async () => {
         axios.get('http://127.0.0.1:5000/CoquiProgramming/GlobalRank/MostExpensive').then((data) => {
-            console.log(data.data)
+            //console.log(data.data)
                 setExpensive((data));
 
         });
@@ -80,7 +80,7 @@ function Dashboard(){
     const getMostLiked = async () => {
         axios.get('http://127.0.0.1:5000/CoquiProgramming/GlobalRank/MostLiked').then((data) => {
 
-                console.log(data.data)
+                //console.log(data.data)
                 setLiked((data));
 
         });
@@ -199,7 +199,8 @@ function Dashboard(){
                 <h4 className= "ui horizontal divider header"></h4>
                 <h4 className= "ui horizontal divider header"></h4>
 
-                <p>CHEAPEST PRODUCT: {Cheapest.data[0].part_name}
+                <p> {console.log("prueba"+ Expensive.data[0].part_name)}
+                    MOST EXPENSIVE PRODUCT: {Expensive.data[0].part_name} --- Price: ${Expensive.data[0].part_price}
                 </p>
 
                 <h4 className= "ui horizontal divider header"></h4>
@@ -207,7 +208,8 @@ function Dashboard(){
                 <h4 className= "ui horizontal divider header"></h4>
 
                 <p>
-                    MOST EXPENSIVE PRODUCT: {Expensive.data[0].part_name}
+                    {console.log(Cheapest.data[0].part_name, Cheapest.data[0].part_price)}
+                    MOST CHEAPEST PRODUCT: {Cheapest.data[0].part_name} --- Price: ${Cheapest.data[0].part_price}
                 </p>
 
             </Container>
