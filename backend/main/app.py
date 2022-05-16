@@ -120,6 +120,13 @@ def parts_by_price_ascending():
     else:
         return jsonify("NOT SUPPORTED"), 405
 
+@app.route('/CoquiProgramming/Order/getId/<int:user_id>', methods=['GET'])
+def orderid(user_id):
+    if request.method == 'GET':
+        return OrderController().getLastOrder(user_id)
+    else:
+        return jsonify("NOT SUPPORTED"), 405
+
 
 """
     ROUTE TO ACCESS PARTS ORDERED IN DESCENDING ORDER BY THEIR PRICE. 

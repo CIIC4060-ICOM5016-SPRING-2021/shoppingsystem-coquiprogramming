@@ -31,6 +31,16 @@ class OrderDAO:
         orderTotal = cursor.fetchone()[0]
         return orderTotal
 
+    def getLastOrder(self, user_id):
+        query = "select max(order_id)  from orders where user_id = %s limit 1; "
+        cursor = self.conn.cursor()
+        cursor.execute(query, (user_id,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+
     def getOrdersByUserId(self, user_id):
         query = "select order_id, total, date from orders where user_id = %s order  by date desc "
         cursor = self.conn.cursor()
@@ -46,12 +56,13 @@ class OrderDAO:
 
         cursor = self.conn.cursor()
         cursor.execute(query, (order_id,))
-        result = []
+        result = cursor.fetchone()[0]
         for row in cursor:
             result.append(row)
         return result
 
     def createOrder(self, user_id):
+        global orderid
         cursor = self.conn.cursor()
         dao = CartDAO()
         daopart = PartDAO()
@@ -63,6 +74,7 @@ class OrderDAO:
         print("TOTAL EN CREATEORDER", total)
         print("hay stock?", stock)
         if (balance >= total) & stock:
+
             balancequery = "update users set balance = (balance - %s) where user_id = %s"
             cursor.execute(balancequery, (total, user_id,))
             query = "insert into orders (user_id, total,date) values (%s,%s,%s) returning order_id"
@@ -70,6 +82,8 @@ class OrderDAO:
             cursor.execute(query, (user_id, total,date), )
             order_id = cursor.fetchone()[0]
             print(order_id)
+
+
             parts = dao.getCartParts(user_id)
             result = []
             for row in parts:
