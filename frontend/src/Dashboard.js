@@ -1,9 +1,15 @@
 import React, {Component,useEffect, useState} from 'react';
-import {Button, Card, Container, Modal, Segment, Divider, Header } from "semantic-ui-react";
+import {Button, Card, Container, Modal, Segment, Divider, Header, CardContent} from "semantic-ui-react";
 import {Bar, BarChart,RadialBarChart, RadialBar, CartesianGrid, Label, ResponsiveContainer, Legend, Tooltip, XAxis, YAxis } from "recharts";
 import axios from "axios";
 import {Link} from "react-router-dom";
-export default
+import * as PropTypes from "prop-types";
+
+function ProductCard(props) {
+    return null;
+}
+
+
 
 
 
@@ -13,12 +19,13 @@ export default
 
 function Dashboard(){
 
+
     useEffect(() => {
         const getLiked = async() =>{
             const getlikes = await getLiked;
             if(getlikes) setLiked(getlikes)
             const getexpensive = await getExpensive
-            if (getexpensive) setExpensive(getexpensive)
+            if (getexpensive) setExpensive(getexpensive.data[0])
             const getcheapest = await getCheapest
             if(getcheapest) setCheapest(getcheapest)
             const topproduct = await getTopProductBought()
@@ -41,10 +48,25 @@ function Dashboard(){
     const [Liked, setLiked]  = useState([]);
 
 
+
+    const ProductCards = ({value}) => {
+
+        return <Card>
+            <Card.Content>
+                <Card.Header>SISIS</Card.Header>
+                <Card.Meta></Card.Meta>
+                <Card.Description>
+
+                </Card.Description>
+            </Card.Content>
+        </Card>
+    }
+
+
     const getTopCatBought = async () => {
         axios.get('http://127.0.0.1:5000/CoquiProgramming/GlobalRank/topCatBought').then((data) => {
             if(data){
-                //console.log(data.data)
+                console.log()
                 setBoughtCategories((data));
             }
         });
@@ -53,7 +75,7 @@ function Dashboard(){
     const getTopProductBought = async () => {
         axios.get('http://127.0.0.1:5000/CoquiProgramming/GlobalRank/topProductBought').then((data) => {
             if(data){
-                //console.log(data.data)
+                console.log()
                 setBoughtProduct((data));
             }
         });
@@ -62,8 +84,8 @@ function Dashboard(){
     const getCheapest = async () => {
         axios.get('http://127.0.0.1:5000/CoquiProgramming/GlobalRank/Cheapest').then((data) => {
             if(data){
-                //log(data.data)
-                setCheapest((data));
+                console.log(data.data[0])
+                setCheapest((data.data[0]));
             }
         });
     }
@@ -71,8 +93,9 @@ function Dashboard(){
 
     const getExpensive = async () => {
         axios.get('http://127.0.0.1:5000/CoquiProgramming/GlobalRank/MostExpensive').then((data) => {
-            //console.log(data.data)
-                setExpensive((data));
+            console.log(data.data[0])
+                setExpensive(data.data[0]);
+
 
         });
     }
@@ -80,37 +103,13 @@ function Dashboard(){
     const getMostLiked = async () => {
         axios.get('http://127.0.0.1:5000/CoquiProgramming/GlobalRank/MostLiked').then((data) => {
 
-                //console.log(data.data)
+                console.log()
                 setLiked((data));
 
         });
     }
 
 
-   /* const CategoriesBought = BoughtCategories.map(item =>{
-        return{
-            "Category":item.Category  ,
-            "Sold":item.Sold
-        }
-    })
-    const ProductsBought = BoughtProduct.map(item =>{
-        return{
-            "Part Name":item.part_name  ,
-            "Sold":item.Sold
-        }
-    })
-    const CheapestProd = Cheapest.map(item =>{
-        return{
-            "part_name":item.part_name  ,
-            "part_price":item.part_price
-        }
-    })
-    const ExpensiveProd = Expensive.map(item =>{
-        return{
-            "part_name":item.part_name  ,
-            "part_price":item.part_price
-        }
-    })*/
 
     const style = {
         top: '50%',
@@ -118,8 +117,6 @@ function Dashboard(){
         transform: 'translate(0, -50%)',
         lineHeight: '24px',
     };
-
-
 
     return (
 
@@ -192,6 +189,9 @@ function Dashboard(){
                     <Bar dataKey="sold" fill="#A318E8" />
                 </BarChart>
             </ResponsiveContainer>
+
+
+
         </Container>
 
             <Container style={{ width: "100vw", height: 400 }}>
@@ -199,18 +199,25 @@ function Dashboard(){
                 <h4 className= "ui horizontal divider header"></h4>
                 <h4 className= "ui horizontal divider header"></h4>
 
-                <p> {console.log("prueba"+ Expensive.data[0].part_name)}
-                    MOST EXPENSIVE PRODUCT: {Expensive.data[0].part_name} --- Price: ${Expensive.data[0].part_price}
-                </p>
+                <Card>
+                    <Card.Header> <h1> Most Expensive Part </h1> </Card.Header>
+                    <Card.Meta> <h4> Expensive Part: {Expensive.part_name} </h4> </Card.Meta>
+                    <Card.Meta> Part Price: ${Expensive.part_price} </Card.Meta>
+
+                </Card>
+
+
 
                 <h4 className= "ui horizontal divider header"></h4>
                 <h4 className= "ui horizontal divider header"></h4>
                 <h4 className= "ui horizontal divider header"></h4>
 
-                <p>
-                    {console.log(Cheapest.data[0].part_name, Cheapest.data[0].part_price)}
-                    MOST CHEAPEST PRODUCT: {Cheapest.data[0].part_name} --- Price: ${Cheapest.data[0].part_price}
-                </p>
+                <Card>
+                    <Card.Header> <h1> Cheapest Part </h1> </Card.Header>
+                    <Card.Meta> <h4> Cheapest Part: {Cheapest.part_name} </h4> </Card.Meta>
+                    <Card.Meta> Part Price: ${Cheapest.part_price} </Card.Meta>
+
+                </Card>
 
             </Container>
 
@@ -233,4 +240,4 @@ function Dashboard(){
 
 
 }
-// export default Dashboard;
+ export default Dashboard;
