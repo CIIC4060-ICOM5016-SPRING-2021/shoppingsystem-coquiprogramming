@@ -100,7 +100,7 @@ function UserView(){
                 .get(`http://127.0.0.1:5000/CoquiProgramming/Order/getId/${dat.user_id}`)
                 .then(res =>{
                     setOrder(res.data[0].order_id)
-                    console.log("SET ORDERRRR"+ orderid)
+                    console.log("SET ORDERRRR"+ res.data[0].order_id)
                 }).catch(e=> {
                     console.log(e)
             })

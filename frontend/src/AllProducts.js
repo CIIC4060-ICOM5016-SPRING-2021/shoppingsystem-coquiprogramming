@@ -122,7 +122,7 @@ function AllProducts(props) {
         </Modal>}
         <Card.Content>
             <Card.Header>{value.part_name} </Card.Header>
-            <Image src='https://i.kym-cdn.com/entries/icons/original/000/039/393/cover2.jpg' size='small' />
+            <Image src='https://i.etsystatic.com/20335151/r/il/ec9b15/2925018714/il_794xN.2925018714_2w3h.jpg' size='small' />
             <Card.Meta>${value.part_price}</Card.Meta>
             <Card.Description>
                 {value.part_info}
