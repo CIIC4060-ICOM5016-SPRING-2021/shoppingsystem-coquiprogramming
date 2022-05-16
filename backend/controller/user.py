@@ -25,9 +25,9 @@ class UserController(object):
 
     def topCatBoughtByUser_build_dict(self, row):
         result = {}
-        result['Cat ID'] = row[0]
-        result['Category'] = row[1]
-        result['Bought'] = row[2]
+        result['cat_id'] = row[0]
+        result['category'] = row[1]
+        result['bought'] = row[2]
         return result
 
     def mostExpensivePartUser_build_dict(self, row):
