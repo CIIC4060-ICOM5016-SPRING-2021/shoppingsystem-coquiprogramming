@@ -208,6 +208,19 @@ function Profile() {
     useEffect(()=>{getinfo()})
 
     return (<Segment><Header dividing textAlign="center" size="huge">User Profile</Header>
+        <Grid columns={2} stackable>
+            <Grid.Column>
+                Profile Full Name: {name.full_name}
+            </Grid.Column>
+            <Grid.Column> BALANCE: ${name.balance}</Grid.Column>
+        </Grid>
+
+            <Grid columns={2} stackable>
+                <Grid.Column>
+                    Email: {name.user_email}
+                </Grid.Column>
+
+            </Grid>
             {<Modal
                 centered={false}
                 open={open}
