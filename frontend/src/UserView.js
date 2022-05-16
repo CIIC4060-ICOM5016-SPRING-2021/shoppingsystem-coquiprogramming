@@ -61,6 +61,7 @@ function UserView(){
     const [notShow, setNotShow] = useState(false)
     const [openOrder, setOpenOrder] = useState(false)
     const [openNoFunds, setOpenNoFunds] = useState(false)
+    const [orderid, setOrder] = useState('')
 
     const LogOut = () => {
         console.log(localStorage)
@@ -87,11 +88,22 @@ function UserView(){
             .post(`http://127.0.0.1:5000/CoquiProgramming/newOrder/${dat.user_id}`,{
             }).then((res) =>{
             console.log(res.data.json)
+
+            console.log("SET ORDERRRR"+ orderid)
             handleChange()
         }).catch(e => {
             console.log(e)
             insufficientFunds()
         })
+
+            axios
+                .get(`http://127.0.0.1:5000/CoquiProgramming/Order/getId/${dat.user_id}`)
+                .then(res =>{
+                    setOrder(res.data[0].order_id)
+                    console.log("SET ORDERRRR"+ orderid)
+                }).catch(e=> {
+                    console.log(e)
+            })
     }
 
     const handleChange = () => {
@@ -165,7 +177,7 @@ function UserView(){
                 <Modal.Header>Your order has placed successfully!</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        Your ORDER ID is ...
+                        Your ORDER ID is: {orderid}
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
