@@ -18,9 +18,9 @@ class UserController(object):
 
     def topPartBoughtByUser_build_dict(self, row):
         result = {}
-        result['Part Name'] = row[0]
-        result['Part ID'] = row[1]
-        result['Bought'] = row[2]
+        result['part_name'] = row[0]
+        result['part_id'] = row[1]
+        result['bought'] = row[2]
         return result
 
     def topCatBoughtByUser_build_dict(self, row):
@@ -32,9 +32,9 @@ class UserController(object):
 
     def mostExpensivePartUser_build_dict(self, row):
         result = {}
-        result['Part ID'] = row[0]
-        result['Part Name'] = row[1]
-        result['Price'] = row[2]
+        result['part_id'] = row[0]
+        result['part_name'] = row[1]
+        result['price'] = row[2]
         return result
 
     def getAllUser(self):
@@ -56,7 +56,7 @@ class UserController(object):
             return jsonify(Error="No Such User Found"), 404
         else:
             user = self.build_user_dict(row)
-        return jsonify(User=user)
+        return jsonify(user)
 
     def newUser(self, json: dict):
         #aUser_id = json['Admin ID']
@@ -83,7 +83,7 @@ class UserController(object):
             return jsonify(Error='User does not have access to create accounts'), 406
 
     def updateUser(self, json: dict):
-        aUser_id = json['Admin ID']
+        aUser_id = json['admin_id']
         user_id = json ['user_id']
         user_password = json['user_password']
         user_email = json['user_email']
@@ -135,7 +135,7 @@ class UserController(object):
         for row in result_tuples:
             dict = self.topPartBoughtByUser_build_dict(row)
             result.append(dict)
-        return jsonify(Top10=result)
+        return jsonify(result)
 
     def getMostBoughtCategoryUser(self, user_id):
         dao = UserDAO()
@@ -145,7 +145,7 @@ class UserController(object):
         for row in result_tuples:
             dict = self.topCatBoughtByUser_build_dict(row)
             result.append(dict)
-        return jsonify(Top10=result)
+        return jsonify(result)
 
     def getMostExpensivePartUser(self, user_id):
         dao = UserDAO()
@@ -155,7 +155,7 @@ class UserController(object):
             res = self.mostExpensivePartUser_build_dict(row)
             result.append(res)
 
-        return jsonify(User=result)
+        return jsonify(result)
 
     def getCheapestPartUser(self, user_id):
         dao = UserDAO()
@@ -165,7 +165,7 @@ class UserController(object):
             res = self.mostExpensivePartUser_build_dict(row)
             result.append(res)
 
-        return jsonify(User=result)
+        return jsonify(result)
 
     #new def for frontend
     def get_acc_by_email_and_password(self,json):
