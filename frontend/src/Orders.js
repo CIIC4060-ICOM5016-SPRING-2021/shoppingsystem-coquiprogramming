@@ -8,8 +8,6 @@ function Orders() {
 
     const [orders, setOrder] = useState([]);
 
-
-
     useEffect(() => {
         const getAllOrders = async() => {
             const orders = await getOrders();
@@ -27,14 +25,10 @@ function Orders() {
         let dat = JSON.parse(e)
 
         axios.get(`http://127.0.0.1:5000/CoquiProgramming/Order/getOrders/${dat.user_id}`, {
-
         })
             .then(data => {
-
                 setOrder(data.data)
                 //console.log(data.data)
-
-
             }).catch(error => console.log(error))
 
 

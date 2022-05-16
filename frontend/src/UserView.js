@@ -59,7 +59,8 @@ function UserView(){
     let dat = JSON.parse(e)
     const [isAuth, setIsAuth] = useState(true)
     const [notShow, setNotShow] = useState(false)
-    const [open, setOpen] = useState(false)
+    const [openOrder, setOpenOrder] = useState(false)
+    const [openNoFunds, setOpenNoFunds] = useState(false)
 
     const LogOut = () => {
         console.log(localStorage)
@@ -82,19 +83,23 @@ function UserView(){
     const createOrder = () => {
         let e = localStorage.getItem("login-data");
         let dat = JSON.parse(e)
-
         axios
             .post(`http://127.0.0.1:5000/CoquiProgramming/newOrder/${dat.user_id}`,{
-            } ).then((res) =>{
+            }).then((res) =>{
             console.log(res.data.json)
             handleChange()
         }).catch(e => {
             console.log(e)
+            insufficientFunds()
         })
     }
 
     const handleChange = () => {
-        setOpen(true);
+        setOpenOrder(true);
+    }
+
+    const insufficientFunds = () => {
+        setOpenNoFunds(true);
     }
 
     const panes = [
@@ -153,9 +158,9 @@ function UserView(){
             <Tab panes={admin}/>
             {<Modal
                 centered={false}
-                open={open}
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
+                open={openOrder}
+                onClose={() => setOpenOrder(false)}
+                onOpen={() => setOpenOrder(true)}
             >
                 <Modal.Header>Your order has placed successfully!</Modal.Header>
                 <Modal.Content>
@@ -164,7 +169,7 @@ function UserView(){
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button onClick={() => setOpen(false)}>OK</Button>
+                    <Button onClick={() => setOpenOrder(false)}>OK</Button>
                 </Modal.Actions>
             </Modal>}
         </Segment>
@@ -174,9 +179,9 @@ function UserView(){
             <Tab panes={panes}/>
             {<Modal
                 centered={false}
-                open={open}
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
+                open={openOrder}
+                onClose={() => setOpenOrder(false)}
+                onOpen={() => setOpenOrder(true)}
             >
                 <Modal.Header>Your order has been placed successfully!</Modal.Header>
                 <Modal.Content>
@@ -185,7 +190,24 @@ function UserView(){
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button onClick={() => setOpen(false)}>Continue shopping</Button>
+                    <Button onClick={() => setOpenOrder(false)}>Continue Sshopping</Button>
+                </Modal.Actions>
+            </Modal>}
+
+            {<Modal
+                centered={false}
+                open={openNoFunds}
+                onClose={() => setOpenNoFunds(false)}
+                onOpen={() => setOpenNoFunds(true)}
+            >
+                <Modal.Header>Your order could not be processed.</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        Insufficient funds to complete order.
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button onClick={() => setOpenNoFunds(false)}>Keep browsing</Button>
                 </Modal.Actions>
             </Modal>}
         </Segment></div>
