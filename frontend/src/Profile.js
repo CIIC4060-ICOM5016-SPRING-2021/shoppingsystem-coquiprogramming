@@ -11,9 +11,9 @@ function Profile() {
     const [open, setOpen] = useState(false);
     const [userEmail,setEmail] =useState("");
     const [userPwd,setPassword] = useState("");
-    const [Balance, setBalance] = useState(false);
-    const [userName, setUserName] = useState(false);
-    const [name, setName] = useState(false);
+    const [Balance, setBalance] = useState('');
+    const [userName, setUserName] = useState('');
+    const [name, setName] = useState('');
     const [data,setData] = useState("");
     const [info,setInfo] = useState(false);
     const [r, setr] = useState(false);
@@ -37,11 +37,10 @@ function Profile() {
         if(info === false){
             let e = localStorage.getItem("login-data");
             let dat = JSON.parse(e)
-            axios.get(`http://127.0.0.1:5000/CoquiProgramming/User/${dat.user_id}`, {
-
-            })
+            axios.get(`http://127.0.0.1:5000/CoquiProgramming/User/${dat.user_id}`)
                 .then(res => {
                     setName(res.data)
+                    console.log("Esto es res " + name.full_name)
                 })
             setInfo(true)
             console.log(name)
@@ -59,12 +58,13 @@ function Profile() {
             let e = localStorage.getItem("login-data");
             let dat = JSON.parse(e)
             let data = {
+                "admin_id":1,
                 "user_id": dat.user_id,
                 "user_password":userPwd,
                 "user_email": userEmail,
                 "full_name": userName,
                 "balance": Balance,
-                "user_rol": name.user_rol
+                "user_rol": dat.user_rol
             }
             if(userName === ""){
                 data.full_name = name.full_name
@@ -195,7 +195,7 @@ function Profile() {
                                     iconPosition='left'
                                     label='Full Name'
                                     placeholder='Insert Full Name'
-                                    onChange={(e) => {setName(e.target.value)}}
+                                    onChange={(e) => {setUserName(e.target.value)}}
                                 />
                                 <Button content='update' primary onClick={checkAcc}/>
                     </Form>
