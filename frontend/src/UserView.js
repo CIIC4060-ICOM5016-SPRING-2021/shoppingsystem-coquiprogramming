@@ -198,11 +198,11 @@ function UserView(){
                 <Modal.Header>Your order has been placed successfully!</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        Your ORDER ID is ...
+                        Your ORDER ID is:{orderid}
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button onClick={() => setOpenOrder(false)}>Continue Sshopping</Button>
+                    <Button onClick={() => setOpenOrder(false)}>Continue Shopping</Button>
                 </Modal.Actions>
             </Modal>}
 
