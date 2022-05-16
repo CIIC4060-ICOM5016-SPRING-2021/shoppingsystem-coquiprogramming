@@ -39,6 +39,11 @@ class OrderController:
 
         return result
 
+    def lastOrderDict(self, row):
+        result = {}
+        result['order_id'] = row[0]
+        return  result
+
     def getAllOrders(self):
         dao = OrderDAO()
 
@@ -75,16 +80,32 @@ class OrderController:
 
         return jsonify(result_list)
 
+    def getLastOrder(self, user_id):
+        dao = OrderDAO()
+
+        result_tuple = dao.getLastOrder(user_id)
+
+        result_list = []
+        for row in result_tuple:
+            result = self.lastOrderDict(row)
+            result_list.append(result)
+
+        return jsonify(result_list)
+
     def createOrder(self, user_id):
         dao = OrderDAO()
         result_tuple = dao.createOrder(user_id)
+        orderid = dao.getLastOrder(user_id)
+
         if not result_tuple:
             return jsonify(Error="Order Could not be completed because of balance or stock"), 404
         result_list=[]
         for row in result_tuple:
             result = self.newOrder_build_dict(row)
+            resultorder = self.lastOrderDict(orderid)
             result_list.append(result)
-        return jsonify(OrderCompleted=result_list)
+            result_list.append(resultorder)
+        return jsonify(result_list)
 
     def deleteOrder(self, json):
         aUser_id = json['Admin ID']
