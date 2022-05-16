@@ -67,7 +67,7 @@ function SignUpPage() {
                         </Modal.Actions>
                     </Modal>}
                     <Form>
-                        <Form.Input
+                        <Form.Input required
                             icon='mail'
                             iconPosition='left'
                             label='E-mail'
@@ -75,7 +75,7 @@ function SignUpPage() {
                             type = 'email' onChange = {
                             (e)=> {setUserEmail(e.target.value)}}
                         />
-                        <Form.Input
+                        <Form.Input required
                             icon='key'
                             iconPosition='left'
                             label='Password'
@@ -83,7 +83,7 @@ function SignUpPage() {
                             type = 'password' onChange = {(e)=> {setUserPass(e.target.value)}}
                         />
 
-                        <Form.Input
+                        <Form.Input required
                             icon='user'
                             iconPosition='left'
                             label='Full Name'
@@ -91,7 +91,7 @@ function SignUpPage() {
                             type = 'text' onChange = {(e)=> {setUserName(e.target.value)}}
                         />
 
-                        <Form.Input
+                        <Form.Input required
                             icon='money'
                             iconPosition='left'
                             label='Balance'

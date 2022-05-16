@@ -170,6 +170,7 @@ function UserView(){
             <Tab panes={admin}/>
             {<Modal
                 centered={false}
+                size='mini'
                 open={openOrder}
                 onClose={() => setOpenOrder(false)}
                 onOpen={() => setOpenOrder(true)}
@@ -181,16 +182,36 @@ function UserView(){
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button onClick={() => setOpenOrder(false)}>OK</Button>
+                    <Button onClick={() => setOpenOrder(false)}>Continue shopping</Button>
                 </Modal.Actions>
             </Modal>}
+
+            {<Modal
+                centered={false}
+                size='mini'
+                open={openNoFunds}
+                onClose={() => setOpenNoFunds(false)}
+                onOpen={() => setOpenNoFunds(true)}
+            >
+                <Modal.Header>Your order could not be processed.</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        Insufficient funds to complete order.
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button onClick={() => setOpenNoFunds(false)}>Keep browsing</Button>
+                </Modal.Actions>
+            </Modal>}
+
         </Segment>
     }
     else
         return <div style={customSegment}><Segment>
             <Tab panes={panes}/>
             {<Modal
-                centered={false}
+                centered={true}
+                size='mini'
                 open={openOrder}
                 onClose={() => setOpenOrder(false)}
                 onOpen={() => setOpenOrder(true)}
@@ -198,7 +219,7 @@ function UserView(){
                 <Modal.Header>Your order has been placed successfully!</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        Your ORDER ID is:{orderid}
+                        Your ORDER ID is: {orderid}
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
@@ -207,7 +228,8 @@ function UserView(){
             </Modal>}
 
             {<Modal
-                centered={false}
+                centered={true}
+                size='mini'
                 open={openNoFunds}
                 onClose={() => setOpenNoFunds(false)}
                 onOpen={() => setOpenNoFunds(true)}
@@ -223,9 +245,6 @@ function UserView(){
                 </Modal.Actions>
             </Modal>}
         </Segment></div>
-
-
-
 }
 export default UserView;
 

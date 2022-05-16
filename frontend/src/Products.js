@@ -17,7 +17,6 @@ function Products() {
             const allParts = await getAll;
                 if(allParts) setParts(allParts)
         };
-
         getAll()
 
     }, []);
@@ -42,7 +41,6 @@ function Products() {
     };*/
 
     const getAll = async(filter) => {
-
         if(filter === 'All' | filter === undefined) {
         await
             axios
@@ -60,8 +58,6 @@ function Products() {
         else if(filter != 'All' & filter != 'undefined'){
             await
         axios
-
-
             .get(`http://127.0.0.1:5000/CoquiProgramming/Parts/${filter}`)
             .then(data => {
                 console.log(" ESTO ES DATAAAA " + data)
@@ -81,8 +77,10 @@ function Products() {
         random_info[i] = parts[i]
     }
     return <text>
-        <div class="filters"><Dropdown text = 'Category'>
+        <Dropdown simple text='Category' icon='list' floating labeled button className='icon'>
             <Dropdown.Menu>
+                <Dropdown.Header content='Filter by category' icon='tags'/>
+                <Dropdown.Divider/>
                 <Dropdown.Item text = 'All'  value = 'All' onClick = {() => getAll('All') }/>
                 <Dropdown.Item text = 'Keyboards'  value = 'Keyboards' onClick = {() => getAll('Keyboards') }/>
                 <Dropdown.Item text = 'Processors' value = 'Processors' onClick = {() => getAll('Processors') }/>
@@ -96,19 +94,23 @@ function Products() {
                 <Dropdown.Item text = 'Video Graphic Devices' value = 'Video Graphic Devices' onClick = {() => getAll('Video Graphic Devices') }/>
             </Dropdown.Menu>
         </Dropdown>
-        <Dropdown text = 'Order By Name'>
+        <Dropdown simple text='Order By Name' icon='filter' floating labeled button className='icon'>
             <Dropdown.Menu>
+                <Dropdown.Header content='Filter by name' icon='tags'/>
+                <Dropdown.Divider/>
                 <Dropdown.Item text = 'Ascending' value = 'OrderedAsc' onClick = {() => getAll('OrderedAsc') }/>
                 <Dropdown.Item text = 'Descending' value = 'OrderedAsc' onClick = {() => getAll('OrderedDesc') }/>
             </Dropdown.Menu>
         </Dropdown>
 
-        <Dropdown text = 'Order By Price'>
+        <Dropdown simple text='Order By Price' icon='filter' floating labeled button className='icon'>
             <Dropdown.Menu>
+                <Dropdown.Header content='Filter by price' icon='tags'/>
+                <Dropdown.Divider/>
                 <Dropdown.Item text = 'Ascending' value = 'OrderedAsc' onClick = {() => getAll('OrderedAscByPrice') }/>
                 <Dropdown.Item text = 'Descending' value = 'OrderedAsc' onClick = {() => getAll('OrderedDescByPrice') }/>
             </Dropdown.Menu>
-        </Dropdown></div>
+        </Dropdown>
 
         <Card.Group>
             <AllProducts info={random_info}/>

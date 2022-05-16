@@ -1,6 +1,6 @@
 import React, {Component, useEffect, useState} from 'react';
 import axios from "axios"
-import{ useNavigate} from "react-router-dom";
+import{useNavigate} from "react-router-dom";
 import {Button, Card, Container, Divider, Form, Grid, Header, Modal, Segment, Tab} from 'semantic-ui-react';
 import SignUpPage from "./SignUpPage";
 import {Route, Link} from "react-router-dom";
