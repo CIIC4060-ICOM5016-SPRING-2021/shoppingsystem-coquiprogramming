@@ -56,7 +56,8 @@ class OrderDAO:
 
         cursor = self.conn.cursor()
         cursor.execute(query, (order_id,))
-        result = cursor.fetchone()[0]
+        result = []
+        print("Esto es el result : ",result)
         for row in cursor:
             result.append(row)
         return result
